@@ -1,0 +1,224 @@
+/* Global Template Styling System */
+
+/* CSS Custom Properties for Template Theming */
+:root {
+  --template-primary: #2563eb;
+  --template-background: #f8fafc;
+  --template-text: #1e293b;
+  --template-layout: single-column;
+}
+
+/* Global Template Application */
+.template-styled-component {
+  color: var(--current-text, var(--template-text));
+}
+
+/* Navigation styling with template colors */
+.template-aware-nav {
+  background: var(--template-background);
+  border-bottom: 2px solid var(--template-primary);
+}
+
+.template-aware-nav a {
+  color: var(--template-text);
+}
+
+.template-aware-nav a:hover,
+.template-aware-nav a.active {
+  color: var(--template-primary);
+  border-bottom-color: var(--template-primary);
+}
+
+/* Button styling with template colors */
+.btn-template-primary {
+  background-color: var(--template-primary);
+  border-color: var(--template-primary);
+  color: white;
+}
+
+.btn-template-primary:hover {
+  background-color: var(--template-primary);
+  opacity: 0.9;
+}
+
+.btn-template-outline {
+  border: 2px solid var(--template-primary);
+  color: var(--template-primary);
+  background: transparent;
+}
+
+.btn-template-outline:hover {
+  background-color: var(--template-primary);
+  color: white;
+}
+
+/* Card styling with template colors */
+.card-template-styled {
+  border: 1px solid var(--template-primary);
+  background: var(--template-background);
+}
+
+.card-template-styled .card-header {
+  background: var(--template-primary);
+  color: white;
+}
+
+/* Breadcrumb styling */
+.breadcrumb-template {
+  background: var(--template-background);
+}
+
+.breadcrumb-template a {
+  color: var(--template-primary);
+}
+
+.breadcrumb-template .current {
+  color: var(--template-text);
+}
+
+/* Footer styling */
+.footer-template {
+  background: var(--template-text);
+  color: var(--template-background);
+}
+
+.footer-template a {
+  color: var(--template-primary);
+}
+
+/* Quick Actions styling */
+.quick-actions-template .action-button {
+  background: var(--template-primary);
+  color: white;
+}
+
+.quick-actions-template .action-button:hover {
+  background: var(--template-primary);
+  opacity: 0.9;
+}
+
+/* Layout-specific styles */
+body.single-column-layout .main-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+body.two-column-layout .main-content {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+body.sidebar-layout .main-content {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Template-specific overrides */
+body.template-software-engineer-modern {
+  --accent-color: #2563eb;
+}
+
+body.template-software-engineer-modern .hero-section {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+body.template-product-manager-executive {
+  --accent-color: #7c3aed;
+}
+
+body.template-product-manager-executive .hero-section {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+}
+
+body.template-business-analyst-modern {
+  --accent-color: #059669;
+}
+
+body.template-business-analyst-modern .hero-section {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+/* AI Dashboard Template Integration */
+.ai-dashboard-template .tab-active {
+  background-color: var(--template-primary);
+  color: white;
+}
+
+.ai-dashboard-template .tab-inactive {
+  color: var(--template-text);
+  border-bottom: 2px solid transparent;
+}
+
+.ai-dashboard-template .tab-inactive:hover {
+  border-bottom-color: var(--template-primary);
+  color: var(--template-primary);
+}
+
+/* Template Preview Enhancement */
+.template-preview-active {
+  border: 3px solid var(--template-primary);
+  box-shadow: 0 0 20px rgba(var(--template-primary), 0.2);
+}
+
+/* Form styling with template colors */
+.form-template input,
+.form-template textarea,
+.form-template select {
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.form-template input:focus,
+.form-template textarea:focus,
+.form-template select:focus {
+  border-color: var(--template-primary);
+  box-shadow: 0 0 0 3px rgba(var(--template-primary), 0.1);
+}
+
+/* Animation for template transitions */
+.template-transition {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  body.two-column-layout .main-content,
+  body.sidebar-layout .main-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Template indicator */
+.template-indicator {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--template-primary);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  z-index: 1000;
+  opacity: 0.9;
+}
+
+/* Global typography adjustments */
+body.template-applied h1,
+body.template-applied h2,
+body.template-applied h3 {
+  color: var(--template-text);
+}
+
+body.template-applied .text-primary {
+  color: var(--template-primary) !important;
+}
+
+body.template-applied .bg-primary {
+  background-color: var(--template-primary) !important;
+}

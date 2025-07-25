@@ -5,8 +5,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ResumeUpload from './ResumeUpload';
 import JobDescriptionInput from './JobDescriptionInput';
 import ResumeAnalysis from './ResumeAnalysis';
+import ResumeBuilderIntegrated from '../resume/ResumeBuilderIntegrated';
 import { resumeService, jobService } from '@/services/resume';
-import { FileText, Briefcase, BarChart3, AlertCircle } from 'lucide-react';
+import { FileText, Briefcase, BarChart3, AlertCircle, Palette, Check, Brain, Zap } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 const AIDashboard = () => {
     const [resumes, setResumes] = useState([]);
@@ -17,11 +19,63 @@ const AIDashboard = () => {
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [appliedTemplate, setAppliedTemplate] = useState(null);
+    const [showTemplateNotification, setShowTemplateNotification] = useState(false);
+    const [generatedResume, setGeneratedResume] = useState(null);
+    const [activeTab, setActiveTab] = useState('upload');
+    const location = useLocation();
 
     useEffect(() => {
         loadResumes();
         loadJobs();
-    }, []);
+        checkAppliedTemplate();
+
+        // Check for tab parameter in URL
+        const urlParams = new URLSearchParams(location.search);
+        const tabParam = urlParams.get('tab');
+        if (tabParam && ['upload', 'builder', 'analysis', 'history'].includes(tabParam)) {
+            setActiveTab(tabParam);
+        }
+    }, [location]);
+
+    const checkAppliedTemplate = () => {
+        // Check if we came from template explorer with an applied template
+        if (location.state?.templateApplied) {
+            setAppliedTemplate(location.state.templateConfig);
+            setShowTemplateNotification(true);
+            setSuccess(`Template "${location.state.templateConfig.templateData.name}" with "${location.state.templateConfig.colorData.name}" colors applied successfully!`);
+
+            // Hide notification after 5 seconds
+            setTimeout(() => {
+                setShowTemplateNotification(false);
+            }, 5000);
+        }
+
+        // Check localStorage for applied template
+        const storedTemplate = localStorage.getItem('appliedTemplate');
+        if (storedTemplate) {
+            try {
+                const templateConfig = JSON.parse(storedTemplate);
+                setAppliedTemplate(templateConfig);
+
+                // Only show notification if it's recent (within 1 minute)
+                const appliedAt = new Date(templateConfig.appliedAt);
+                const now = new Date();
+                const timeDiff = (now - appliedAt) / 1000 / 60; // minutes
+
+                if (timeDiff < 1) {
+                    setShowTemplateNotification(true);
+                    setSuccess(`Template "${templateConfig.templateData.name}" is now active!`);
+
+                    setTimeout(() => {
+                        setShowTemplateNotification(false);
+                    }, 5000);
+                }
+            } catch (error) {
+                console.error('Failed to parse applied template:', error);
+            }
+        }
+    };
 
     const loadResumes = async () => {
         try {
@@ -108,8 +162,36 @@ const AIDashboard = () => {
         }
     };
 
+    const handleResumeGenerated = async (resumeData) => {
+        try {
+            setGeneratedResume(resumeData);
+            setSuccess(`Resume generated successfully for ${resumeData.name}! Switch to the Analysis tab to review.`);
+
+            // Simulate adding the generated resume to the resumes list
+            const newResume = {
+                id: `generated_${Date.now()}`,
+                filename: `${resumeData.name}_AI_Generated_Resume.pdf`,
+                type: 'ai_generated',
+                data: resumeData,
+                created_at: new Date().toISOString()
+            };
+
+            setResumes(prev => [newResume, ...prev]);
+            setSelectedResume(newResume.id);
+
+            // Switch to analysis tab after a brief delay
+            setTimeout(() => {
+                setActiveTab('analysis');
+            }, 2000);
+
+        } catch (error) {
+            console.error('Failed to handle generated resume:', error);
+            setError('Failed to save generated resume. Please try again.');
+        }
+    };
+
     return (
-        <div className="container mx-auto p-6 space-y-6">
+        <div className="container mx-auto p-6 space-y-6 pt-8">
             <div className="text-center space-y-2">
                 <h1 className="text-3xl font-bold text-gray-900">AI-Powered Resume Optimizer</h1>
                 <p className="text-gray-600">
@@ -131,9 +213,54 @@ const AIDashboard = () => {
                 </div>
             )}
 
-            <Tabs defaultValue="upload" className="w-full">
-                <TabsList className="grid w-full grid-cols-3">
+            {/* Applied Template Status */}
+            {appliedTemplate && (
+                <Card className="border-blue-200 bg-blue-50">
+                    <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <div
+                                    className="w-10 h-10 rounded-lg flex items-center justify-center"
+                                    style={{ backgroundColor: appliedTemplate.colorData.primary }}
+                                >
+                                    <Palette className="w-5 h-5 text-white" />
+                                </div>
+                                <div>
+                                    <h3 className="font-semibold text-blue-900">
+                                        Template Applied: {appliedTemplate.templateData.name}
+                                    </h3>
+                                    <p className="text-sm text-blue-700">
+                                        Color Scheme: {appliedTemplate.colorData.name} •
+                                        Category: {appliedTemplate.templateData.category}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Check className="w-5 h-5 text-green-600" />
+                                <span className="text-sm text-green-700 font-medium">Active</span>
+                            </div>
+                        </div>
+                        <div className="mt-3 flex gap-2">
+                            {appliedTemplate.templateData.features.map((feature, index) => (
+                                <span
+                                    key={index}
+                                    className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                                >
+                                    {feature}
+                                </span>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
+
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="grid w-full grid-cols-4">
                     <TabsTrigger value="upload">Upload & Setup</TabsTrigger>
+                    <TabsTrigger value="builder">
+                        <Zap className="w-4 h-4 mr-2" />
+                        AI Resume Builder
+                    </TabsTrigger>
                     <TabsTrigger value="analysis">Analysis</TabsTrigger>
                     <TabsTrigger value="history">History</TabsTrigger>
                 </TabsList>
@@ -239,7 +366,44 @@ const AIDashboard = () => {
                     )}
                 </TabsContent>
 
+                <TabsContent value="builder" className="space-y-6">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center space-x-2">
+                                <Brain className="h-5 w-5 text-blue-600" />
+                                <span>AI-Powered Resume Builder</span>
+                            </CardTitle>
+                            <p className="text-gray-600 mt-2">
+                                Create a professional resume from scratch using our AI-powered interview process.
+                                Your generated resume will automatically be available for analysis.
+                            </p>
+                        </CardHeader>
+                        <CardContent>
+                            <ResumeBuilderIntegrated onResumeGenerated={handleResumeGenerated} />
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+
                 <TabsContent value="analysis" className="space-y-6">
+                    {generatedResume && (
+                        <Card className="border-green-200 bg-green-50">
+                            <CardContent className="p-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+                                        <Zap className="w-5 h-5 text-white" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-green-900">
+                                            AI Resume Generated: {generatedResume.name}
+                                        </h3>
+                                        <p className="text-sm text-green-700">
+                                            Target Role: {generatedResume.role} • Generated: {new Date(generatedResume.generatedAt).toLocaleTimeString()}
+                                        </p>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
                     {analysis ? (
                         <ResumeAnalysis
                             score={analysis.score || 0}
