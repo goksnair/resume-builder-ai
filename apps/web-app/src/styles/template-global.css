@@ -2,223 +2,567 @@
 
 /* CSS Custom Properties for Template Theming */
 :root {
-  --template-primary: #2563eb;
-  --template-background: #f8fafc;
-  --template-text: #1e293b;
-  --template-layout: single-column;
+    --template-primary: #2563eb;
+    --template-background: #f8fafc;
+    --template-text: #1e293b;
+    --template-layout: single-column;
+    --template-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    --template-card-style: default;
+    --template-button-style: rounded-md;
+    --template-font-weight: medium;
+    --template-theme-name: "Default";
 }
 
 /* Global Template Application */
 .template-styled-component {
-  color: var(--current-text, var(--template-text));
+    color: var(--current-text, var(--template-text));
 }
 
-/* Navigation styling with template colors */
+/* Enhanced Navigation styling with role-specific themes */
 .template-aware-nav {
-  background: var(--template-background);
-  border-bottom: 2px solid var(--template-primary);
+    background: var(--template-gradient);
+    background-size: 200% 200%;
+    animation: gradient-shift 6s ease infinite;
+    border-bottom: 3px solid var(--template-primary);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .template-aware-nav a {
-  color: var(--template-text);
+    color: white;
+    font-weight: var(--template-font-weight);
+    transition: all 0.3s ease;
 }
 
 .template-aware-nav a:hover,
 .template-aware-nav a.active {
-  color: var(--template-primary);
-  border-bottom-color: var(--template-primary);
+    color: var(--template-background);
+    transform: translateY(-2px);
+    border-bottom-color: var(--template-background);
 }
 
-/* Button styling with template colors */
+/* Role-specific navigation styling */
+.role-tech .template-aware-nav {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.role-product .template-aware-nav {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+}
+
+.role-business .template-aware-nav {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+/* Enhanced Button styling with template colors */
 .btn-template-primary {
-  background-color: var(--template-primary);
-  border-color: var(--template-primary);
-  color: white;
+    background: var(--template-gradient);
+    border: none;
+    color: white;
+    font-weight: var(--template-font-weight);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn-template-primary:hover {
-  background-color: var(--template-primary);
-  opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .btn-template-outline {
-  border: 2px solid var(--template-primary);
-  color: var(--template-primary);
-  background: transparent;
+    border: 2px solid var(--template-primary);
+    color: var(--template-primary);
+    background: transparent;
+    font-weight: var(--template-font-weight);
+    transition: all 0.3s ease;
 }
 
 .btn-template-outline:hover {
-  background-color: var(--template-primary);
-  color: white;
+    background: var(--template-gradient);
+    color: white;
+    transform: translateY(-2px);
 }
 
-/* Card styling with template colors */
+/* Enhanced Card styling with role-specific themes */
 .card-template-styled {
-  border: 1px solid var(--template-primary);
-  background: var(--template-background);
+    border: 2px solid var(--template-primary);
+    background: var(--template-background);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-template-styled:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .card-template-styled .card-header {
-  background: var(--template-primary);
-  color: white;
+    background: var(--template-gradient);
+    color: white;
+    font-weight: var(--template-font-weight);
+}
+
+/* UI Theme Specific Styles */
+.ui-tech-modern .card-template-styled {
+    border-radius: 12px;
+    border-width: 1px;
+}
+
+.ui-executive-elegant .card-template-styled {
+    border-radius: 20px;
+    border-width: 3px;
+    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.2);
+}
+
+.ui-business-clean .card-template-styled {
+    border-radius: 8px;
+    border-width: 2px;
+}
+
+.ui-marketing-bold .card-template-styled {
+    border-radius: 25px;
+    border-width: 3px;
+    transform: rotate(-1deg);
+    box-shadow: 0 8px 30px rgba(220, 38, 38, 0.2);
+}
+
+.ui-finance-corporate .card-template-styled {
+    border-radius: 4px;
+    border-width: 1px;
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+.ui-data-modern .card-template-styled {
+    border-radius: 15px;
+    border-width: 2px;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
 }
 
 /* Breadcrumb styling */
 .breadcrumb-template {
-  background: var(--template-background);
+    background: var(--template-background);
 }
 
 .breadcrumb-template a {
-  color: var(--template-primary);
+    color: var(--template-primary);
 }
 
 .breadcrumb-template .current {
-  color: var(--template-text);
+    color: var(--template-text);
 }
 
 /* Footer styling */
 .footer-template {
-  background: var(--template-text);
-  color: var(--template-background);
+    background: var(--template-text);
+    color: var(--template-background);
 }
 
 .footer-template a {
-  color: var(--template-primary);
+    color: var(--template-primary);
 }
 
 /* Quick Actions styling */
 .quick-actions-template .action-button {
-  background: var(--template-primary);
-  color: white;
+    background: var(--template-primary);
+    color: white;
 }
 
 .quick-actions-template .action-button:hover {
-  background: var(--template-primary);
-  opacity: 0.9;
+    background: var(--template-primary);
+    opacity: 0.9;
 }
 
 /* Layout-specific styles */
 body.single-column-layout .main-content {
-  max-width: 800px;
-  margin: 0 auto;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 body.two-column-layout .main-content {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 body.sidebar-layout .main-content {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Template-specific overrides */
 body.template-software-engineer-modern {
-  --accent-color: #2563eb;
+    --accent-color: #2563eb;
 }
 
 body.template-software-engineer-modern .hero-section {
-  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
 }
 
 body.template-product-manager-executive {
-  --accent-color: #7c3aed;
+    --accent-color: #7c3aed;
 }
 
 body.template-product-manager-executive .hero-section {
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
 }
 
 body.template-business-analyst-modern {
-  --accent-color: #059669;
+    --accent-color: #059669;
 }
 
 body.template-business-analyst-modern .hero-section {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
 }
 
 /* AI Dashboard Template Integration */
 .ai-dashboard-template .tab-active {
-  background-color: var(--template-primary);
-  color: white;
+    background-color: var(--template-primary);
+    color: white;
 }
 
 .ai-dashboard-template .tab-inactive {
-  color: var(--template-text);
-  border-bottom: 2px solid transparent;
+    color: var(--template-text);
+    border-bottom: 2px solid transparent;
 }
 
 .ai-dashboard-template .tab-inactive:hover {
-  border-bottom-color: var(--template-primary);
-  color: var(--template-primary);
+    border-bottom-color: var(--template-primary);
+    color: var(--template-primary);
 }
 
 /* Template Preview Enhancement */
 .template-preview-active {
-  border: 3px solid var(--template-primary);
-  box-shadow: 0 0 20px rgba(var(--template-primary), 0.2);
+    border: 3px solid var(--template-primary);
+    box-shadow: 0 0 20px rgba(var(--template-primary), 0.2);
 }
 
 /* Form styling with template colors */
 .form-template input,
 .form-template textarea,
 .form-template select {
-  border: 2px solid #e5e7eb;
-  border-radius: 6px;
+    border: 2px solid #e5e7eb;
+    border-radius: 6px;
 }
 
 .form-template input:focus,
 .form-template textarea:focus,
 .form-template select:focus {
-  border-color: var(--template-primary);
-  box-shadow: 0 0 0 3px rgba(var(--template-primary), 0.1);
+    border-color: var(--template-primary);
+    box-shadow: 0 0 0 3px rgba(var(--template-primary), 0.1);
 }
 
 /* Animation for template transitions */
 .template-transition {
-  transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  body.two-column-layout .main-content,
-  body.sidebar-layout .main-content {
-    grid-template-columns: 1fr;
-  }
+
+    body.two-column-layout .main-content,
+    body.sidebar-layout .main-content {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Template indicator */
 .template-indicator {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--template-primary);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  z-index: 1000;
-  opacity: 0.9;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--template-primary);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    z-index: 1000;
+    opacity: 0.9;
 }
 
 /* Global typography adjustments */
 body.template-applied h1,
 body.template-applied h2,
 body.template-applied h3 {
-  color: var(--template-text);
+    color: var(--template-text);
 }
 
 body.template-applied .text-primary {
-  color: var(--template-primary) !important;
+    color: var(--template-primary) !important;
 }
 
 body.template-applied .bg-primary {
-  background-color: var(--template-primary) !important;
+    background-color: var(--template-primary) !important;
+}
+
+/* Enhanced Role-Specific Page Styling */
+
+/* Marketing Role - Bold and Creative */
+.role-business.template-marketing-creative {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+}
+
+.role-business.template-marketing-creative h1,
+.role-business.template-marketing-creative h2 {
+    color: #dc2626;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(220, 38, 38, 0.1);
+}
+
+.role-business.template-marketing-creative .hero-section {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: skewY(-2deg);
+    margin-top: -20px;
+    padding-top: 40px;
+}
+
+/* Finance Role - Professional and Corporate */
+.role-business.template-finance-professional {
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+.role-business.template-finance-professional h1,
+.role-business.template-finance-professional h2 {
+    color: #1f2937;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+}
+
+.role-business.template-finance-professional .hero-section {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    box-shadow: 0 20px 60px rgba(31, 41, 55, 0.3);
+}
+
+/* Data Science Role - Modern and Analytical */
+.role-tech.template-data-scientist-analytics {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+}
+
+.role-tech.template-data-scientist-analytics h1,
+.role-tech.template-data-scientist-analytics h2 {
+    color: #f59e0b;
+    font-weight: 600;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.role-tech.template-data-scientist-analytics .hero-section {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.role-tech.template-data-scientist-analytics .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="30" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+    opacity: 0.3;
+}
+
+/* Global Page Transitions */
+body {
+    transition: all 0.5s ease;
+}
+
+/* Template Application Animation */
+@keyframes template-apply {
+    0% {
+        opacity: 0.8;
+        transform: scale(0.98);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.template-applied {
+    animation: template-apply 0.8s ease-out;
+}
+
+/* Gradient Animation for Navigation */
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Enhanced Template Status Indicator */
+.template-status-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--template-gradient);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: var(--template-font-weight);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Main Content Area Styling */
+.main-content {
+    transition: all 0.5s ease;
+    padding: 20px;
+}
+
+/* Hero Section Enhancements */
+.hero-section {
+    transition: all 0.5s ease;
+    border-radius: 15px;
+    margin: 20px;
+    padding: 40px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Template Card Enhancements */
+.template-card {
+    transition: all 0.3s ease;
+    border-radius: var(--template-button-style, 8px);
+    overflow: hidden;
+}
+
+.template-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Enhancements */
+.apply-template-btn {
+    background: var(--template-gradient);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: var(--template-button-style, 8px);
+    font-weight: var(--template-font-weight);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.apply-template-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.apply-template-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading Animation for Template Application */
+.template-loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.template-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: loading-sweep 1.5s infinite;
+}
+
+@keyframes loading-sweep {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+    .hero-section {
+        margin: 10px;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .template-status-indicator {
+        top: 10px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Custom Template Notification */
+.template-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--template-gradient);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 25px;
+    font-weight: var(--template-font-weight);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: slideInBottom 0.5s ease-out;
+}
+
+@keyframes slideInBottom {
+    from {
+        transform: translateX(-50%) translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
 }

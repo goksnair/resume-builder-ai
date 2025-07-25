@@ -23,6 +23,7 @@ const ProfessionalTemplates = () => {
     const [previewTemplate, setPreviewTemplate] = useState(null);
     const [downloadStatus, setDownloadStatus] = useState({});
     const [downloadMenuOpen, setDownloadMenuOpen] = useState({});
+    const [selectedTemplate, setSelectedTemplate] = useState(null);
 
     console.log('ProfessionalTemplates component rendering', { appliedTemplate, isTemplateApplied });
 
@@ -45,8 +46,15 @@ const ProfessionalTemplates = () => {
             preview: {
                 sections: ['Contact', 'Summary', 'Technical Skills', 'Experience', 'Projects', 'Education'],
                 layout: 'single-column',
-                colors: ['#2563eb', '#f8fafc', '#1e293b'],
-                features: ['ATS-friendly', 'Clean typography', 'Skills matrix', 'Project highlights']
+                colors: ['#2563eb', '#eff6ff', '#1e293b'],
+                features: ['ATS-friendly', 'Clean typography', 'Skills matrix', 'Project highlights'],
+                uiTheme: {
+                    name: 'Tech Blue',
+                    primaryGradient: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+                    cardStyle: 'tech-modern',
+                    buttonStyle: 'rounded-lg',
+                    fontWeight: 'medium'
+                }
             },
             sampleContent: {
                 name: 'Alex Johnson',
@@ -72,8 +80,15 @@ const ProfessionalTemplates = () => {
             preview: {
                 sections: ['Header', 'Executive Summary', 'Core Competencies', 'Professional Experience', 'Key Achievements', 'Education'],
                 layout: 'two-column-header',
-                colors: ['#7c3aed', '#f3f4f6', '#374151'],
-                features: ['Executive design', 'Metrics focus', 'Leadership emphasis', 'Strategic positioning']
+                colors: ['#7c3aed', '#faf5ff', '#374151'],
+                features: ['Executive design', 'Metrics focus', 'Leadership emphasis', 'Strategic positioning'],
+                uiTheme: {
+                    name: 'Executive Purple',
+                    primaryGradient: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
+                    cardStyle: 'executive-elegant',
+                    buttonStyle: 'rounded-xl',
+                    fontWeight: 'semibold'
+                }
             },
             sampleContent: {
                 name: 'Sarah Chen',
@@ -100,7 +115,14 @@ const ProfessionalTemplates = () => {
                 sections: ['Personal Info', 'Professional Summary', 'Skills & Tools', 'Work Experience', 'Certifications', 'Education'],
                 layout: 'sidebar-left',
                 colors: ['#059669', '#ecfdf5', '#1f2937'],
-                features: ['Data visualization', 'Metrics emphasis', 'Clean design', 'Professional layout']
+                features: ['Data visualization', 'Metrics emphasis', 'Clean design', 'Professional layout'],
+                uiTheme: {
+                    name: 'Business Green',
+                    primaryGradient: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+                    cardStyle: 'business-clean',
+                    buttonStyle: 'rounded-md',
+                    fontWeight: 'normal'
+                }
             },
             sampleContent: {
                 name: 'Michael Rodriguez',
@@ -112,6 +134,108 @@ const ProfessionalTemplates = () => {
                     role: 'Business Analyst',
                     duration: '2020 - Present',
                     achievements: ['Automated reporting processes saving 20 hours/week', 'Identified $500K cost savings opportunity']
+                }]
+            }
+        },
+        {
+            id: 'marketing-creative',
+            name: 'Marketing Manager - Creative',
+            category: 'business',
+            description: 'Creative template showcasing marketing campaigns and brand management skills.',
+            rating: 4.6,
+            downloads: 5432,
+            level: 'Mid-Senior',
+            preview: {
+                sections: ['Profile', 'Marketing Summary', 'Campaign Highlights', 'Professional Experience', 'Skills & Tools', 'Education'],
+                layout: 'creative-grid',
+                colors: ['#dc2626', '#fef2f2', '#1f2937'],
+                features: ['Creative design', 'Campaign showcase', 'Brand focus', 'Visual appeal'],
+                uiTheme: {
+                    name: 'Marketing Red',
+                    primaryGradient: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
+                    cardStyle: 'marketing-bold',
+                    buttonStyle: 'rounded-full',
+                    fontWeight: 'bold'
+                }
+            },
+            sampleContent: {
+                name: 'Emma Thompson',
+                title: 'Marketing Manager',
+                summary: 'Creative marketing professional with 6+ years driving brand growth...',
+                skills: ['Digital Marketing', 'Brand Strategy', 'Content Creation', 'Analytics', 'Social Media'],
+                experience: [{
+                    company: 'Brand Agency',
+                    role: 'Marketing Manager',
+                    duration: '2019 - Present',
+                    achievements: ['Increased brand awareness by 65%', 'Managed $2M marketing budget']
+                }]
+            }
+        },
+        {
+            id: 'finance-professional',
+            name: 'Finance Director - Professional',
+            category: 'business',
+            description: 'Sophisticated template for finance professionals emphasizing quantitative achievements.',
+            rating: 4.8,
+            downloads: 7123,
+            level: 'Senior',
+            preview: {
+                sections: ['Executive Profile', 'Financial Summary', 'Key Competencies', 'Career Progression', 'Notable Achievements', 'Qualifications'],
+                layout: 'finance-structured',
+                colors: ['#1f2937', '#f9fafb', '#0f172a'],
+                features: ['Professional design', 'Quantitative focus', 'Clean structure', 'Corporate style'],
+                uiTheme: {
+                    name: 'Finance Dark',
+                    primaryGradient: 'linear-gradient(135deg, #1f2937 0%, #111827 100%)',
+                    cardStyle: 'finance-corporate',
+                    buttonStyle: 'rounded-sm',
+                    fontWeight: 'medium'
+                }
+            },
+            sampleContent: {
+                name: 'Robert Kim',
+                title: 'Finance Director',
+                summary: 'Strategic finance executive with 10+ years optimizing financial performance...',
+                skills: ['Financial Planning', 'Budget Management', 'Risk Analysis', 'Compliance', 'Team Leadership'],
+                experience: [{
+                    company: 'Global Finance Corp',
+                    role: 'Finance Director',
+                    duration: '2018 - Present',
+                    achievements: ['Reduced operational costs by $3M annually', 'Led successful IPO preparation']
+                }]
+            }
+        },
+        {
+            id: 'data-scientist-analytics',
+            name: 'Data Scientist - Analytics',
+            category: 'tech',
+            description: 'Data-focused template highlighting machine learning and analytical capabilities.',
+            rating: 4.9,
+            downloads: 9876,
+            level: 'All Levels',
+            preview: {
+                sections: ['Contact', 'Data Science Summary', 'Technical Stack', 'Project Portfolio', 'Professional Experience', 'Education & Certifications'],
+                layout: 'data-visual',
+                colors: ['#f59e0b', '#fffbeb', '#1f2937'],
+                features: ['Data visualization', 'Technical focus', 'Project showcase', 'Analytical design'],
+                uiTheme: {
+                    name: 'Data Gold',
+                    primaryGradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                    cardStyle: 'data-modern',
+                    buttonStyle: 'rounded-lg',
+                    fontWeight: 'semibold'
+                }
+            },
+            sampleContent: {
+                name: 'Dr. Lisa Wang',
+                title: 'Senior Data Scientist',
+                summary: 'PhD Data Scientist with 5+ years building ML models and analytics platforms...',
+                skills: ['Python', 'R', 'Machine Learning', 'TensorFlow', 'SQL', 'Tableau', 'Statistics'],
+                experience: [{
+                    company: 'AI Innovations',
+                    role: 'Senior Data Scientist',
+                    duration: '2020 - Present',
+                    achievements: ['Built recommendation system serving 1M+ users', 'Improved model accuracy by 25%']
                 }]
             }
         }
@@ -368,22 +492,36 @@ ${!forPDF ? '</body>\n</html>' : ''}`;
     const handleApplyTemplate = (templateId) => {
         const template = templates.find(t => t.id === templateId);
         if (template) {
-            const success = applyTemplate(template);
-            if (success) {
-                // Add visual feedback
-                const notification = document.createElement('div');
-                notification.className = 'template-indicator';
-                notification.textContent = `✓ ${template.name} Applied`;
-                document.body.appendChild(notification);
-                
-                // Remove notification after 3 seconds
-                setTimeout(() => {
+            // For professional templates, we just set the selected resume template
+            // but do NOT change the website theme
+            setSelectedTemplate(template);
+            
+            // Show feedback that the resume template was selected
+            const notification = document.createElement('div');
+            notification.className = 'template-notification';
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 20px; height: 20px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        ✓
+                    </div>
+                    <div>
+                        <div style="font-weight: bold;">Resume Template Selected!</div>
+                        <div style="font-size: 0.9em; opacity: 0.9;">${template.name} - Ready for resume building</div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
                     document.body.removeChild(notification);
-                }, 3000);
-                
-                // Add template-applied class to body for styling
-                document.body.classList.add('template-applied');
-            }
+                }
+            }, 4000);
+
+            // Navigate to Resume Builder with this template
+            setTimeout(() => {
+                navigate('/ai-dashboard?tab=resume-builder');
+            }, 1500);
         }
     };
 
@@ -462,36 +600,34 @@ ${!forPDF ? '</body>\n</html>' : ''}`;
                                     </button>
                                     <button
                                         onClick={() => handleApplyTemplate(template.id)}
-                                        className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md transition-colors text-sm ${
-                                            appliedTemplate?.id === template.id
+                                        className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md transition-colors text-sm ${appliedTemplate?.id === template.id
                                                 ? 'bg-green-600 text-white'
                                                 : 'bg-purple-600 text-white hover:bg-purple-700'
-                                        }`}
+                                            }`}
                                     >
                                         {appliedTemplate?.id === template.id ? (
                                             <>
                                                 <CheckCircle className="w-3 h-3" />
-                                                Applied
+                                                Selected
                                             </>
                                         ) : (
                                             <>
                                                 <Briefcase className="w-3 h-3" />
-                                                Apply
+                                                Select
                                             </>
                                         )}
                                     </button>
                                     <button
                                         onClick={() => handleDownload(template.id)}
                                         disabled={downloadStatus[template.id] === 'downloading'}
-                                        className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md transition-colors text-sm ${
-                                            downloadStatus[template.id] === 'downloading'
+                                        className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md transition-colors text-sm ${downloadStatus[template.id] === 'downloading'
                                                 ? 'bg-gray-400 text-white cursor-not-allowed'
                                                 : downloadStatus[template.id] === 'success'
                                                     ? 'bg-green-600 text-white'
                                                     : downloadStatus[template.id] === 'error'
                                                         ? 'bg-red-600 text-white'
                                                         : 'bg-blue-600 text-white hover:bg-blue-700'
-                                        }`}
+                                            }`}
                                     >
                                         {downloadStatus[template.id] === 'downloading' ? (
                                             <>
@@ -740,11 +876,10 @@ ${!forPDF ? '</body>\n</html>' : ''}`;
                                         </div>
                                         <button
                                             onClick={() => handleApplyTemplate(previewTemplate.id)}
-                                            className={`flex items-center gap-2 px-4 py-3 rounded-md transition-colors ${
-                                                appliedTemplate?.id === previewTemplate.id
+                                            className={`flex items-center gap-2 px-4 py-3 rounded-md transition-colors ${appliedTemplate?.id === previewTemplate.id
                                                     ? 'bg-green-600 text-white'
                                                     : 'bg-purple-600 text-white hover:bg-purple-700'
-                                            }`}
+                                                }`}
                                         >
                                             {appliedTemplate?.id === previewTemplate.id ? (
                                                 <>
@@ -754,7 +889,7 @@ ${!forPDF ? '</body>\n</html>' : ''}`;
                                             ) : (
                                                 <>
                                                     <Briefcase className="w-4 h-4" />
-                                                    Apply Template Globally
+                                                    Use This Resume Template
                                                 </>
                                             )}
                                         </button>

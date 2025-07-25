@@ -22,20 +22,20 @@ function App() {
           <Breadcrumb />
           <main className="flex-1">
             <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/ai" element={<AIDashboard />} />
-            <Route path="/templates" element={<TemplateExplorerPage />} />
-            <Route path="/professional-templates" element={<ProfessionalTemplates />} />
-            {/* Redirect resume builder routes to AI dashboard */}
-            <Route path="/builder" element={<Navigate to="/ai?tab=builder" replace />} />
-            <Route path="/resume-builder" element={<Navigate to="/ai?tab=builder" replace />} />
-          </Routes>
-        </main>
-        <Footer />
-        <QuickActions />
-        <TemplateStatus />
-      </div>
-    </Router>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/ai" element={<AIDashboard />} />
+              <Route path="/templates" element={<TemplateExplorerPage />} />
+              <Route path="/professional-templates" element={<ProfessionalTemplates />} />
+              {/* Redirect resume builder routes to AI dashboard */}
+              <Route path="/builder" element={<Navigate to="/ai?tab=builder" replace />} />
+              <Route path="/resume-builder" element={<Navigate to="/ai?tab=builder" replace />} />
+            </Routes>
+          </main>
+          <Footer />
+          <QuickActions />
+          <TemplateStatus />
+        </div>
+      </Router>
     </TemplateProvider>
   );
 }

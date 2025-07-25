@@ -57,7 +57,7 @@ const Navigation = () => {
     };
 
     return (
-        <nav 
+        <nav
             className={`border-b sticky top-0 z-40 backdrop-blur-sm ${isTemplateApplied ? 'template-aware-nav' : 'bg-white/95 border-gray-200'}`}
             style={isTemplateApplied ? {
                 backgroundColor: templateColors.background,
@@ -68,7 +68,7 @@ const Navigation = () => {
                 <div className="flex justify-between items-center h-16">
                     {/* Logo/Brand */}
                     <Link to="/" className="flex items-center space-x-3">
-                        <div 
+                        <div
                             className="w-8 h-8 rounded-lg flex items-center justify-center"
                             style={isTemplateApplied ? {
                                 background: `linear-gradient(135deg, ${templateColors.primary} 0%, ${templateColors.primary}CC 100%)`
@@ -79,7 +79,7 @@ const Navigation = () => {
                             <FileText className="w-5 h-5 text-white" />
                         </div>
                         <div className="hidden sm:block">
-                            <h1 
+                            <h1
                                 className="text-xl font-bold"
                                 style={isTemplateApplied ? { color: templateColors.text } : { color: '#1f2937' }}
                             >
@@ -171,8 +171,8 @@ const Navigation = () => {
                                         onClick={() => setIsMobileMenuOpen(false)}
                                     >
                                         <div className={`flex items-center space-x-3 px-4 py-3 rounded-lg ${active
-                                                ? 'bg-blue-50 text-blue-600 border border-blue-200'
-                                                : 'text-gray-600 hover:bg-gray-50'
+                                            ? 'bg-blue-50 text-blue-600 border border-blue-200'
+                                            : 'text-gray-600 hover:bg-gray-50'
                                             }`}>
                                             <Icon className="w-5 h-5" />
                                             <div>

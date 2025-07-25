@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTemplate } from '../../contexts/TemplateContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -19,9 +21,12 @@ import {
 } from 'lucide-react';
 
 const TemplateExplorer = () => {
+    const navigate = useNavigate();
+    const { applyTemplate: applyWebsiteTheme } = useTemplate();
     const [selectedTemplate, setSelectedTemplate] = useState('modern-saas');
     const [selectedColorScheme, setSelectedColorScheme] = useState('cool-tech');
     const [viewMode, setViewMode] = useState('desktop');
+    const [isApplying, setIsApplying] = useState(false);
 
     const templates = {
         'modern-saas': {
@@ -82,6 +87,70 @@ const TemplateExplorer = () => {
             accent: '#F97316',
             background: '#0F172A',
             light: '#F8FAFC'
+        }
+    };
+
+    const handleApplyDesign = () => {
+        setIsApplying(true);
+        
+        const selectedTemplateData = templates[selectedTemplate];
+        const selectedColors = colorSchemes[selectedColorScheme];
+        
+        // Create a theme object for the website
+        const websiteTheme = {
+            id: `${selectedTemplate}-${selectedColorScheme}`,
+            name: `${selectedTemplateData.name} - ${selectedColors.name}`,
+            category: 'ui-theme',
+            description: `${selectedTemplateData.description} with ${selectedColors.name} color scheme`,
+            preview: {
+                sections: ['Website UI', 'Navigation', 'Components', 'Layout'],
+                layout: selectedTemplate,
+                colors: [selectedColors.primary, selectedColors.background, selectedColors.dark || selectedColors.light],
+                features: ['Website Theme', 'Global Styling', 'UI/UX Design', 'Color Scheme'],
+                uiTheme: {
+                    name: `${selectedTemplateData.name} ${selectedColors.name}`,
+                    primaryGradient: `linear-gradient(135deg, ${selectedColors.primary} 0%, ${selectedColors.secondary} 100%)`,
+                    cardStyle: selectedTemplate,
+                    buttonStyle: selectedTemplate === 'minimal-elegant' ? 'rounded-sm' : 'rounded-lg',
+                    fontWeight: selectedTemplate === 'creative-bold' ? 'bold' : 'medium',
+                    templateType: 'ui-theme' // Mark this as a UI theme, not a resume template
+                }
+            }
+        };
+
+        // Apply the website theme
+        const success = applyWebsiteTheme(websiteTheme);
+        
+        if (success) {
+            // Show success feedback
+            const notification = document.createElement('div');
+            notification.className = 'template-notification';
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 20px; height: 20px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        ✓
+                    </div>
+                    <div>
+                        <div style="font-weight: bold;">Website Theme Applied!</div>
+                        <div style="font-size: 0.9em; opacity: 0.9;">${websiteTheme.name}</div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
+                setIsApplying(false);
+            }, 3000);
+
+            // Optional: Navigate to another page to see the theme in action
+            setTimeout(() => {
+                navigate('/');
+            }, 1500);
+        } else {
+            setIsApplying(false);
         }
     };
 
@@ -510,8 +579,12 @@ const TemplateExplorer = () => {
                                     </div>
 
                                     <div className="mt-4 flex gap-2">
-                                        <Button className="flex-1">
-                                            Apply This Design
+                                        <Button 
+                                            className="flex-1"
+                                            onClick={handleApplyDesign}
+                                            disabled={isApplying}
+                                        >
+                                            {isApplying ? 'Applying...' : 'Apply This Design'}
                                         </Button>
                                         <Button variant="outline">
                                             Customize Further

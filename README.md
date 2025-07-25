@@ -3,6 +3,7 @@
 ## **Enterprise-Grade AI Resu## 📋 **Professional Template Library - Enhanced**
 
 ### **🎯 Interactive Preview & Download System**
+
 - **Visual Template Previews** with realistic sample content
 - **Detailed Template Information** including features, sections, and stats
 - **Multi-Format Downloads**: PDF (high-quality) and HTML formats
@@ -10,6 +11,7 @@
 - **Template Categories** with smart filtering (Technology, Product, Business)
 
 ### **📥 Advanced Download Features**
+
 ```javascript
 PDF Generation: High-resolution output using jsPDF + html2canvas
 HTML Templates: Clean, professional markup with embedded styling  
@@ -19,11 +21,13 @@ Professional Styling: ATS-optimized layouts with proper typography
 ```
 
 ### **📊 Available Templates**
+
 - **Software Engineer - Modern** (⭐4.9, 12.4K downloads) - Clean technical layout
 - **Product Manager - Executive** (⭐4.8, 8.2K downloads) - Strategic leadership focus
 - **Business Analyst - Modern** (⭐4.7, 6.5K downloads) - Data-driven design
 
 ### **🔧 Template Features**
+
 - **ATS Optimization**: 92-99% compatibility scores
 - **Professional Sections**: Summary, Skills, Experience, Education, Contact
 - **Color Schemes**: Job-specific professional color palettes
@@ -34,6 +38,7 @@ Professional Styling: ATS-optimized layouts with proper typography
 ## 📋 **Original Professional Template Library**e Builder with Advanced Psychological Profiling**
 
 ### ✅ **PHASE 1 ACHIEVEMENTS (COMPLETED + ENHANCED)**
+
 - **🧠 AI-Powered Resume Builder** with executive-level talent scout persona
 - **📊 Advanced Psychological Profiling** with real-time personality analysis
 - **🎯 Industry-Specific Questionnaire** algorithm for Software Engineer, Product Manager, Chief of Staff roles
@@ -47,6 +52,7 @@ Professional Styling: ATS-optimized layouts with proper typography
 ## 🎯 **Current Status: PRODUCTION READY**
 
 ### **✅ Live Features**
+
 - **AI Resume Builder**: Integrated as tab in AI Dashboard (`/ai?tab=builder`)
 - **Professional Templates**: Interactive preview and download system (`/professional-templates`)
 - **Template Downloads**: PDF and HTML formats with professional styling
@@ -55,6 +61,7 @@ Professional Styling: ATS-optimized layouts with proper typography
 - **Full Integration**: Seamless workflow from creation to analysis
 
 ### **🏗️ Architecture**
+
 ```
 /apps/
 ├── web-app/          # React frontend with advanced UI components
@@ -67,6 +74,7 @@ Professional Styling: ATS-optimized layouts with proper typography
 ```
 
 ### **📦 Key Dependencies**
+
 ```json
 {
   "react": "^19.1.0",
@@ -79,11 +87,15 @@ Professional Styling: ATS-optimized layouts with proper typography
 ```
 
 ---
+
 # Complete setup with both frontend and backend
+
 ./setup-unified.sh
 
 # Start all services
+
 make start-all
+
 ```
 
 #### Method 2: Step-by-Step Setup
@@ -120,6 +132,7 @@ Strategic Synthesis: Unique value proposition generation
 ## � **Professional Template Library**
 
 ### **Job-Specific Categories**
+
 - **🔧 Software Engineering** (5 templates): Technical Leadership, Full-Stack, Startup Engineer
 - **📊 Product Management** (4 templates): B2B SaaS, Consumer, Growth-Focused, Technical PM
 - **👥 Executive & Leadership** (4 templates): Chief of Staff (Startup/Enterprise), Director, VP
@@ -128,6 +141,7 @@ Strategic Synthesis: Unique value proposition generation
 - **🎨 Design & Creative** (3 templates): UX/Product Design, Creative Director, Brand Designer
 
 ### **Template Features**
+
 - **ATS Optimization**: 92-99% compatibility scores
 - **Role-Specific Sections**: Technical Skills, Leadership Experience, Growth Metrics
 - **Professional Design Styles**: Executive Clean, Modern Grid, Corporate Premium
@@ -138,10 +152,12 @@ Strategic Synthesis: Unique value proposition generation
 ## 🚀 **Quick Start**
 
 ### **Prerequisites**
+
 - Node.js 18+ and Python 3.9+
 - Git and modern web browser
 
 ### **Installation**
+
 ```bash
 # Clone repository
 git clone https://github.com/goksnair/resume-builder-ai.git
@@ -157,13 +173,15 @@ make run
 ```
 
 ### **Access Points**
-- **Main Application**: http://localhost:3002
-- **AI Resume Builder**: http://localhost:3002/ai?tab=builder
-- **Professional Templates**: http://localhost:3002/professional-templates
-- **Template Explorer**: http://localhost:3002/templates
-- **Backend API**: http://localhost:8000/api/docs
+
+- **Main Application**: <http://localhost:3002>
+- **AI Resume Builder**: <http://localhost:3002/ai?tab=builder>
+- **Professional Templates**: <http://localhost:3002/professional-templates>
+- **Template Explorer**: <http://localhost:3002/templates>
+- **Backend API**: <http://localhost:8000/api/docs>
 
 ---
+
 - **Real-time log viewing** with `make monitor-logs`
 - **Timestamped entries** for debugging
 - **Error tracking** and recovery suggestions
@@ -355,10 +373,10 @@ The Resume Builder AI uses a modern microservices architecture:
 
 Once running, access these services:
 
-- **Frontend**: http://localhost:3000+ (exact port shown in terminal)
-- **Backend API**: http://localhost:8000
-- **API Documentation**: http://localhost:8000/api/docs
-- **Health Check**: http://localhost:8000/ping
+- **Frontend**: <http://localhost:3000+> (exact port shown in terminal)
+- **Backend API**: <http://localhost:8000>
+- **API Documentation**: <http://localhost:8000/api/docs>
+- **Health Check**: <http://localhost:8000/ping>
 
 ## 🧪 Testing
 
@@ -374,7 +392,7 @@ make status
 
 ### Manual Testing Steps
 
-1. Open frontend in browser: http://localhost:3000+
+1. Open frontend in browser: <http://localhost:3000+>
 2. Navigate to the AI Dashboard
 3. Upload a sample resume file
 4. Enter a job description
@@ -426,6 +444,6 @@ make stop-all
 ## 📞 Support
 
 For issues and questions:
+
 - Create an issue on [GitHub Issues](https://github.com/goksnair/resume-builder-ai/issues)
 - Check the [documentation](https://github.com/goksnair/resume-builder-ai/wiki)
-

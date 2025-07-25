@@ -6,6 +6,7 @@ import ResumeUpload from './ResumeUpload';
 import JobDescriptionInput from './JobDescriptionInput';
 import ResumeAnalysis from './ResumeAnalysis';
 import ResumeBuilderIntegrated from '../resume/ResumeBuilderIntegrated';
+import ConversationalResumeBuilder from '../conversation/ConversationalResumeBuilder';
 import { resumeService, jobService } from '@/services/resume';
 import { FileText, Briefcase, BarChart3, AlertCircle, Palette, Check, Brain, Zap } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
@@ -33,7 +34,7 @@ const AIDashboard = () => {
         // Check for tab parameter in URL
         const urlParams = new URLSearchParams(location.search);
         const tabParam = urlParams.get('tab');
-        if (tabParam && ['upload', 'builder', 'analysis', 'history'].includes(tabParam)) {
+        if (tabParam && ['upload', 'conversation', 'builder', 'analysis', 'history'].includes(tabParam)) {
             setActiveTab(tabParam);
         }
     }, [location]);
@@ -255,8 +256,12 @@ const AIDashboard = () => {
             )}
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                <TabsList className="grid w-full grid-cols-4">
+                <TabsList className="grid w-full grid-cols-5">
                     <TabsTrigger value="upload">Upload & Setup</TabsTrigger>
+                    <TabsTrigger value="conversation">
+                        <Brain className="w-4 h-4 mr-2" />
+                        ROCKET Framework
+                    </TabsTrigger>
                     <TabsTrigger value="builder">
                         <Zap className="w-4 h-4 mr-2" />
                         AI Resume Builder
@@ -366,11 +371,30 @@ const AIDashboard = () => {
                     )}
                 </TabsContent>
 
-                <TabsContent value="builder" className="space-y-6">
+                <TabsContent value="conversation" className="space-y-6">
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center space-x-2">
                                 <Brain className="h-5 w-5 text-blue-600" />
+                                <span>🚀 ROCKET Framework - Career Acceleration Toolkit</span>
+                            </CardTitle>
+                            <p className="text-gray-600 mt-2">
+                                Create a strategic, ATS-optimized resume using the ROCKET Framework methodology. 
+                                ROCKET = <strong>R</strong>esults-<strong>O</strong>ptimized <strong>C</strong>areer <strong>K</strong>nowledge <strong>E</strong>nhancement <strong>T</strong>oolkit.
+                                Uses CAR (Context-Action-Results) and REST (Results-Efficiency-Scope-Time) methods to position you as THE best choice.
+                            </p>
+                        </CardHeader>
+                        <CardContent>
+                            <ConversationalResumeBuilder onResumeGenerated={handleResumeGenerated} />
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+
+                <TabsContent value="builder" className="space-y-6">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center space-x-2">
+                                <Zap className="h-5 w-5 text-blue-600" />
                                 <span>AI-Powered Resume Builder</span>
                             </CardTitle>
                             <p className="text-gray-600 mt-2">
