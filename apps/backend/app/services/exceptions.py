@@ -108,3 +108,15 @@ class JobKeywordExtractionError(Exception):
             message = "Job keyword extraction failed. Cannot improve resume without job requirements."
         super().__init__(message)
         self.job_id = job_id
+
+
+class ServiceException(Exception):
+    """
+    General service exception for ROCKET Framework services.
+    """
+
+    def __init__(self, message: str, service_name: Optional[str] = None):
+        if service_name:
+            message = f"[{service_name}] {message}"
+        super().__init__(message)
+        self.service_name = service_name

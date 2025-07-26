@@ -20,6 +20,9 @@ function App() {
     <ErrorBoundary>
       <TemplateProvider>
         <Router>
+          <div style={{ background: '#ffe', padding: '1rem', color: '#222', fontWeight: 'bold', fontSize: '1.2rem', borderBottom: '2px solid #ccc' }}>
+            Root Rendered: App.jsx
+          </div>
           <div className="App min-h-screen flex flex-col">
             <Navigation />
             <Breadcrumb />
@@ -35,6 +38,8 @@ function App() {
                 {/* Admin routes - removed from user-facing navigation */}
                 <Route path="/admin/template-explorer" element={<TemplateExplorerPage />} />
                 <Route path="/admin/templates" element={<TemplateExplorerPage />} />
+                {/* Test route for debug */}
+                <Route path="/test" element={<div style={{ color: 'green', fontSize: '2rem' }}>Test Route Works!</div>} />
               </Routes>
             </main>
             <Footer />
