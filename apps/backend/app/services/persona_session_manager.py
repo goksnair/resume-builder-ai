@@ -12,7 +12,7 @@ from ..models.personas import PersonaProfile, PersonaSession, PersonaInsight, Pe
 from ..models.conversation import ConversationSession
 from .persona_definitions import PersonaDefinitions, PersonaSelector
 from .conversation_service import ROCKETFramework
-from ..database.database import get_sync_db_session
+from ..core.database import get_sync_db_session
 
 
 class PersonaSessionManager:

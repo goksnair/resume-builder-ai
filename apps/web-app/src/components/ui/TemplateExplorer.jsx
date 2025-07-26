@@ -28,6 +28,8 @@ const TemplateExplorer = () => {
     const [viewMode, setViewMode] = useState('desktop');
     const [isApplying, setIsApplying] = useState(false);
 
+    console.log('TemplateExplorer rendering with selectedTemplate:', selectedTemplate, 'colorScheme:', selectedColorScheme);
+
     const templates = {
         'modern-saas': {
             name: 'Modern SaaS',
@@ -91,11 +93,15 @@ const TemplateExplorer = () => {
     };
 
     const handleApplyDesign = () => {
+        console.log('🎨 handleApplyDesign called with:', selectedTemplate, selectedColorScheme);
         setIsApplying(true);
-        
+
         const selectedTemplateData = templates[selectedTemplate];
         const selectedColors = colorSchemes[selectedColorScheme];
-        
+
+        console.log('🎨 Selected template data:', selectedTemplateData);
+        console.log('🎨 Selected colors:', selectedColors);
+
         // Create a theme object for the website
         const websiteTheme = {
             id: `${selectedTemplate}-${selectedColorScheme}`,
@@ -118,9 +124,13 @@ const TemplateExplorer = () => {
             }
         };
 
+        console.log('🎨 Created websiteTheme object:', websiteTheme);
+
         // Apply the website theme
         const success = applyWebsiteTheme(websiteTheme);
-        
+
+        console.log('🎨 applyWebsiteTheme result:', success);
+
         if (success) {
             // Show success feedback
             const notification = document.createElement('div');
@@ -479,8 +489,8 @@ const TemplateExplorer = () => {
                                     <div
                                         key={key}
                                         className={`p-3 rounded cursor-pointer border-2 transition-all ${selectedTemplate === key
-                                                ? 'border-blue-500 bg-blue-50'
-                                                : 'border-gray-200 hover:border-gray-300'
+                                            ? 'border-blue-500 bg-blue-50'
+                                            : 'border-gray-200 hover:border-gray-300'
                                             }`}
                                         onClick={() => setSelectedTemplate(key)}
                                     >
@@ -503,8 +513,8 @@ const TemplateExplorer = () => {
                                     <div
                                         key={key}
                                         className={`p-3 rounded cursor-pointer border-2 transition-all ${selectedColorScheme === key
-                                                ? 'border-blue-500 bg-blue-50'
-                                                : 'border-gray-200 hover:border-gray-300'
+                                            ? 'border-blue-500 bg-blue-50'
+                                            : 'border-gray-200 hover:border-gray-300'
                                             }`}
                                         onClick={() => setSelectedColorScheme(key)}
                                     >
@@ -579,7 +589,7 @@ const TemplateExplorer = () => {
                                     </div>
 
                                     <div className="mt-4 flex gap-2">
-                                        <Button 
+                                        <Button
                                             className="flex-1"
                                             onClick={handleApplyDesign}
                                             disabled={isApplying}

@@ -25,17 +25,17 @@ def create_persona_tables():
         # Create tables using raw SQL to avoid conflicts
         with engine.connect() as conn:
             # Drop tables if they exist (for clean migration)
-            print("🗑️  Dropping existing persona tables if they exist...")
-            conn.execute(text("DROP TABLE IF EXISTS persona_cross_analysis"))
-            conn.execute(text("DROP TABLE IF EXISTS persona_insights"))
-            conn.execute(text("DROP TABLE IF EXISTS persona_sessions"))
-            conn.execute(text("DROP TABLE IF EXISTS persona_profiles"))
+            print("🗑️  Dropping existing ROCKET persona tables if they exist...")
+            conn.execute(text("DROP TABLE IF EXISTS rocket_persona_cross_analysis"))
+            conn.execute(text("DROP TABLE IF EXISTS rocket_persona_insights"))
+            conn.execute(text("DROP TABLE IF EXISTS rocket_persona_sessions"))
+            conn.execute(text("DROP TABLE IF EXISTS rocket_persona_profiles"))
             conn.commit()
             
-            # Create persona_profiles table
-            print("📋 Creating persona_profiles table...")
+            # Create rocket_persona_profiles table
+            print("📋 Creating rocket_persona_profiles table...")
             conn.execute(text("""
-                CREATE TABLE persona_profiles (
+                CREATE TABLE rocket_persona_profiles (
                     id VARCHAR NOT NULL PRIMARY KEY,
                     persona_type VARCHAR NOT NULL,
                     name VARCHAR NOT NULL,
@@ -51,10 +51,10 @@ def create_persona_tables():
                 )
             """))
             
-            # Create persona_sessions table
-            print("💬 Creating persona_sessions table...")
+            # Create rocket_persona_sessions table
+            print("💬 Creating rocket_persona_sessions table...")
             conn.execute(text("""
-                CREATE TABLE persona_sessions (
+                CREATE TABLE rocket_persona_sessions (
                     id VARCHAR NOT NULL PRIMARY KEY,
                     user_id VARCHAR,
                     persona_id VARCHAR NOT NULL,
@@ -73,15 +73,15 @@ def create_persona_tables():
                     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                     completed_at DATETIME,
-                    FOREIGN KEY (persona_id) REFERENCES persona_profiles(id),
+                    FOREIGN KEY (persona_id) REFERENCES rocket_persona_profiles(id),
                     FOREIGN KEY (conversation_session_id) REFERENCES conversation_sessions(id)
                 )
             """))
             
-            # Create persona_insights table
-            print("💡 Creating persona_insights table...")
+            # Create rocket_persona_insights table
+            print("💡 Creating rocket_persona_insights table...")
             conn.execute(text("""
-                CREATE TABLE persona_insights (
+                CREATE TABLE rocket_persona_insights (
                     id VARCHAR NOT NULL PRIMARY KEY,
                     persona_session_id VARCHAR NOT NULL,
                     user_id VARCHAR,
@@ -96,14 +96,14 @@ def create_persona_tables():
                     user_validated VARCHAR,
                     user_feedback TEXT,
                     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (persona_session_id) REFERENCES persona_sessions(id)
+                    FOREIGN KEY (persona_session_id) REFERENCES rocket_persona_sessions(id)
                 )
             """))
             
-            # Create persona_cross_analysis table
-            print("🔍 Creating persona_cross_analysis table...")
+            # Create rocket_persona_cross_analysis table
+            print("🔍 Creating rocket_persona_cross_analysis table...")
             conn.execute(text("""
-                CREATE TABLE persona_cross_analysis (
+                CREATE TABLE rocket_persona_cross_analysis (
                     id VARCHAR NOT NULL PRIMARY KEY,
                     user_id VARCHAR NOT NULL,
                     primary_persona_sessions JSON NOT NULL,
@@ -122,11 +122,11 @@ def create_persona_tables():
             
             conn.commit()
         
-        print("✅ Successfully created persona tables:")
-        print("   - persona_profiles")
-        print("   - persona_sessions")
-        print("   - persona_insights")
-        print("   - persona_cross_analysis")
+        print("✅ Successfully created ROCKET persona tables:")
+        print("   - rocket_persona_profiles")
+        print("   - rocket_persona_sessions")
+        print("   - rocket_persona_insights")
+        print("   - rocket_persona_cross_analysis")
         
         # Initialize personas in database
         print("\n🤖 Initializing 7 AI Persona Profiles...")

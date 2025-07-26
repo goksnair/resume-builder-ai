@@ -27,6 +27,8 @@ export const TemplateProvider = ({ children }) => {
     const applyTemplateStyles = (template) => {
         if (!template || !template.preview) return;
 
+        console.log('🎨 Applying template styles:', template.name);
+        
         const root = document.documentElement;
         const colors = template.preview.colors;
         const uiTheme = template.preview.uiTheme;
@@ -37,6 +39,8 @@ export const TemplateProvider = ({ children }) => {
         root.style.setProperty('--template-text', colors[2]);
         root.style.setProperty('--template-layout', template.preview.layout);
 
+        console.log('🎨 Applied colors:', colors);
+
         // Apply UI theme properties if available
         if (uiTheme) {
             root.style.setProperty('--template-gradient', uiTheme.primaryGradient);
@@ -44,12 +48,13 @@ export const TemplateProvider = ({ children }) => {
             root.style.setProperty('--template-button-style', uiTheme.buttonStyle);
             root.style.setProperty('--template-font-weight', uiTheme.fontWeight);
             root.style.setProperty('--template-theme-name', `"${uiTheme.name}"`);
+            console.log('🎨 Applied UI theme:', uiTheme.name);
         }
 
         // Add template-specific class to body
         document.body.className = document.body.className.replace(/template-\w+(-\w+)*/g, '');
         document.body.classList.add(`template-${template.id}`);
-        
+
         // Add role-specific styling class
         if (template.category) {
             document.body.classList.add(`role-${template.category}`);
@@ -75,14 +80,25 @@ export const TemplateProvider = ({ children }) => {
         if (uiTheme) {
             document.body.classList.add(`ui-${uiTheme.cardStyle}`);
         }
+
+        // Force a visual update by adding a temporary highlight
+        document.body.style.transition = 'all 0.5s ease';
+        document.body.style.transform = 'scale(1.01)';
+        setTimeout(() => {
+            document.body.style.transform = 'scale(1)';
+        }, 300);
+
+        console.log('🎨 Applied CSS classes:', document.body.className);
     };
 
     // Apply template globally
     const applyTemplate = (template) => {
+        console.log('🎯 applyTemplate called with:', template.name, 'category:', template.category);
         setSelectedTemplate(template);
-        
+
         // Only apply website styling for UI themes, not resume templates
         if (template.category === 'ui-theme' || template.preview?.uiTheme?.templateType === 'ui-theme') {
+            console.log('✅ Applying as UI theme for website styling');
             setAppliedTemplate(template);
             // Save to localStorage for persistence
             localStorage.setItem('appliedTemplate', JSON.stringify(template));
@@ -90,7 +106,7 @@ export const TemplateProvider = ({ children }) => {
             applyTemplateStyles(template);
         } else {
             // For resume templates, don't change website theme
-            console.log('Resume template selected (no website theme change):', template.name);
+            console.log('📄 Resume template selected (no website theme change):', template.name);
         }
 
         return true;

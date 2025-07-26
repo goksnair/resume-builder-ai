@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { TemplateProvider } from './contexts/TemplateContext';
 import HomePage from './pages/HomePage';
 import AIDashboard from './components/ai/AIDashboard';
-import TemplateExplorerPage from './pages/TemplateExplorerSimple';
+import TemplateExplorerPage from './components/ui/TemplateExplorer';
 import ProfessionalTemplates from './components/templates/ProfessionalTemplatesSimple';
 import Navigation from './components/ui/Navigation';
 import Breadcrumb from './components/ui/Breadcrumb';
@@ -25,6 +25,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/ai" element={<AIDashboard />} />
               <Route path="/templates" element={<TemplateExplorerPage />} />
+              <Route path="/template-explorer" element={<TemplateExplorerPage />} />
               <Route path="/professional-templates" element={<ProfessionalTemplates />} />
               {/* Redirect resume builder routes to AI dashboard */}
               <Route path="/builder" element={<Navigate to="/ai?tab=builder" replace />} />

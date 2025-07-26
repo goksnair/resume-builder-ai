@@ -12,7 +12,7 @@ const TemplateStatus = () => {
         <div className="fixed top-4 right-4 z-50">
             <div
                 className="template-status-indicator bg-white border-3 rounded-xl shadow-2xl p-4 max-w-sm transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-                style={{ 
+                style={{
                     borderColor: templateColors.primary,
                     background: `linear-gradient(135deg, ${templateColors.background} 0%, white 100%)`
                 }}
@@ -21,8 +21,8 @@ const TemplateStatus = () => {
                     <div className="flex items-center gap-3">
                         <div
                             className="w-8 h-8 rounded-full flex items-center justify-center shadow-lg"
-                            style={{ 
-                                background: `linear-gradient(135deg, ${templateColors.primary} 0%, ${templateColors.primary}CC 100%)` 
+                            style={{
+                                background: `linear-gradient(135deg, ${templateColors.primary} 0%, ${templateColors.primary}CC 100%)`
                             }}
                         >
                             <Palette className="w-4 h-4 text-white" />
@@ -55,7 +55,7 @@ const TemplateStatus = () => {
 
                 <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
-                        <div 
+                        <div
                             className="w-3 h-3 rounded-full border-2 border-white shadow-sm"
                             style={{ backgroundColor: templateColors.primary }}
                         ></div>

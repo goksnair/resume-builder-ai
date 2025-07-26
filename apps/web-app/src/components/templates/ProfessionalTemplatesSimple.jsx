@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTemplate } from '../../contexts/TemplateContext';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+// TODO: Re-enable PDF downloads when implemented
+// import jsPDF from 'jspdf';
+// import html2canvas from 'html2canvas';
 import {
     Briefcase,
     Code,
@@ -26,6 +27,8 @@ const ProfessionalTemplates = () => {
     const [selectedTemplate, setSelectedTemplate] = useState(null);
 
     console.log('ProfessionalTemplates component rendering', { appliedTemplate, isTemplateApplied });
+    console.log('Templates array length:', templates.length);
+    console.log('Selected category:', selectedCategory);
 
     const templateCategories = [
         { id: 'all', label: 'All Templates', icon: <Briefcase className="w-4 h-4" /> },
@@ -245,6 +248,8 @@ const ProfessionalTemplates = () => {
         ? templates
         : templates.filter(template => template.category === selectedCategory);
 
+    console.log('Filtered templates:', filteredTemplates.length, filteredTemplates.map(t => t.name));
+
     const handlePreview = (templateId) => {
         const template = templates.find(t => t.id === templateId);
         if (template) {
@@ -261,9 +266,13 @@ const ProfessionalTemplates = () => {
 
         try {
             if (format === 'pdf') {
-                await downloadAsPDF(template);
+                // await downloadAsPDF(template);
+                console.log('PDF download requested for:', template.name);
+                alert(`PDF download for "${template.name}" will be implemented soon!`);
             } else {
-                await downloadAsHTML(template);
+                // await downloadAsHTML(template);
+                console.log('HTML download requested for:', template.name);
+                alert(`HTML download for "${template.name}" will be implemented soon!`);
             }
 
             // Set success status
@@ -283,6 +292,8 @@ const ProfessionalTemplates = () => {
         }
     };
 
+    // TODO: Implement download functionality
+    /*
     const downloadAsPDF = async (template) => {
         // Create a temporary div with the resume content
         const tempDiv = document.createElement('div');
@@ -488,6 +499,7 @@ ${!forPDF ? '    </style>\n</head>\n<body>' : ''}
     </div>
 ${!forPDF ? '</body>\n</html>' : ''}`;
     };
+    */
 
     const handleApplyTemplate = (templateId) => {
         const template = templates.find(t => t.id === templateId);
@@ -495,7 +507,7 @@ ${!forPDF ? '</body>\n</html>' : ''}`;
             // For professional templates, we just set the selected resume template
             // but do NOT change the website theme
             setSelectedTemplate(template);
-            
+
             // Show feedback that the resume template was selected
             const notification = document.createElement('div');
             notification.className = 'template-notification';
@@ -558,7 +570,8 @@ ${!forPDF ? '</body>\n</html>' : ''}`;
 
                 {/* Templates Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredTemplates.map((template) => (
+                    {filteredTemplates.length > 0 ? (
+                        filteredTemplates.map((template) => (
                         <div key={template.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                             {/* Template Preview */}
                             <div className="h-48 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
@@ -601,8 +614,8 @@ ${!forPDF ? '</body>\n</html>' : ''}`;
                                     <button
                                         onClick={() => handleApplyTemplate(template.id)}
                                         className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md transition-colors text-sm ${appliedTemplate?.id === template.id
-                                                ? 'bg-green-600 text-white'
-                                                : 'bg-purple-600 text-white hover:bg-purple-700'
+                                            ? 'bg-green-600 text-white'
+                                            : 'bg-purple-600 text-white hover:bg-purple-700'
                                             }`}
                                     >
                                         {appliedTemplate?.id === template.id ? (
@@ -621,12 +634,12 @@ ${!forPDF ? '</body>\n</html>' : ''}`;
                                         onClick={() => handleDownload(template.id)}
                                         disabled={downloadStatus[template.id] === 'downloading'}
                                         className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md transition-colors text-sm ${downloadStatus[template.id] === 'downloading'
-                                                ? 'bg-gray-400 text-white cursor-not-allowed'
-                                                : downloadStatus[template.id] === 'success'
-                                                    ? 'bg-green-600 text-white'
-                                                    : downloadStatus[template.id] === 'error'
-                                                        ? 'bg-red-600 text-white'
-                                                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                                            ? 'bg-gray-400 text-white cursor-not-allowed'
+                                            : downloadStatus[template.id] === 'success'
+                                                ? 'bg-green-600 text-white'
+                                                : downloadStatus[template.id] === 'error'
+                                                    ? 'bg-red-600 text-white'
+                                                    : 'bg-blue-600 text-white hover:bg-blue-700'
                                             }`}
                                     >
                                         {downloadStatus[template.id] === 'downloading' ? (
@@ -654,7 +667,19 @@ ${!forPDF ? '</body>\n</html>' : ''}`;
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    ))
+                ) : (
+                    <div className="col-span-full text-center py-12">
+                        <Briefcase className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold text-gray-600 mb-2">No templates found</h3>
+                        <p className="text-gray-500">
+                            {templates.length === 0 
+                                ? 'No templates available at the moment.'
+                                : `No templates found for the "${templateCategories.find(c => c.id === selectedCategory)?.label}" category.`
+                            }
+                        </p>
+                    </div>
+                )}
                 </div>
 
                 {/* No templates message */}
@@ -877,8 +902,8 @@ ${!forPDF ? '</body>\n</html>' : ''}`;
                                         <button
                                             onClick={() => handleApplyTemplate(previewTemplate.id)}
                                             className={`flex items-center gap-2 px-4 py-3 rounded-md transition-colors ${appliedTemplate?.id === previewTemplate.id
-                                                    ? 'bg-green-600 text-white'
-                                                    : 'bg-purple-600 text-white hover:bg-purple-700'
+                                                ? 'bg-green-600 text-white'
+                                                : 'bg-purple-600 text-white hover:bg-purple-700'
                                                 }`}
                                         >
                                             {appliedTemplate?.id === previewTemplate.id ? (

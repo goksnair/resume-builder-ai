@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTemplate } from '../../contexts/TemplateContext';
-import { Button } from '@/components/ui/button';
+import { Button } from './button';
 import {
     Home,
     Brain,
