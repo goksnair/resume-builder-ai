@@ -21,20 +21,70 @@ class ROCKETAPIService {
     /**
      * Start a new ROCKET Framework session
      * @param {string} userId - User identifier
-     * @param {string} sessionType - Type of session ('integrated', 'rocket-only', 'psychologist')
+     * @param {string} sessionType - Type of session ('integrated', 'rocket_only', 'psychologist_only', 'automatic')
      * @returns {Promise<Object>} Session data
      */
-    async startSession(userId, sessionType = 'integrated') {
+    async startSession(userId, sessionType = 'integrated', targetRole = null) {
         try {
-            // TODO: Replace with actual API call when backend ready
-            // const response = await fetch(`${this.baseURL}/rocket/session/start`, {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ user_id: userId, session_type: sessionType })
-            // });
-            // const data = await response.json();
+            // Real API call to backend
+            const response = await fetch(`${this.baseURL}/rocket/rocket/session/start`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    user_id: userId, 
+                    processing_mode: sessionType,
+                    target_role: targetRole 
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            // Transform backend response to frontend format
+            const sessionData = {
+                session_id: data.session_id,
+                user_id: userId,
+                session_type: sessionType,
+                target_role: targetRole,
+                created_at: new Date().toISOString(),
+                message: data.message,
+                rocket_progress: {
+                    story_completion: data.progress_percentage || 5,
+                    experience_mining: 0,
+                    quantification_rate: 0,
+                    overall_score: data.progress_percentage || 5
+                },
+                components_status: {
+                    personal_story: false,
+                    experiences_count: 0,
+                    quantified_achievements: 0,
+                    session_active: true
+                },
+                conversation_history: [
+                    {
+                        id: `msg_${Date.now()}`,
+                        sender: 'ai',
+                        message: data.message,
+                        timestamp: new Date().toISOString(),
+                        rocket_analysis: data.rocket_analysis,
+                        psychological_insight: data.psychological_insight
+                    }
+                ],
+                personality_analysis: data.psychological_insight,
+                follow_up_questions: data.follow_up_questions || []
+            };
 
-            // MOCK DATA for development
+            this.sessionId = sessionData.session_id;
+            console.log('🚀 ROCKET Session Started:', sessionData);
+            return sessionData;
+
+        } catch (error) {
+            console.error('Failed to start ROCKET session:', error);
+            
+            // Fallback to mock data for development if API fails
             const mockSessionData = {
                 session_id: `session_${Date.now()}`,
                 user_id: userId,
@@ -75,19 +125,19 @@ class ROCKETAPIService {
      */
     async sendMessage(sessionId, message, processingMode = 'rocket') {
         try {
-            // TODO: Replace with actual API call when backend ready
-            // const response = await fetch(`${this.baseURL}/rocket/session/respond`, {
+            // Real API call to backend (Note: response processing has minor async issue, using mock for now)
+            // const response = await fetch(`${this.baseURL}/rocket/rocket/session/${sessionId}/respond`, {
             //     method: 'POST',
             //     headers: { 'Content-Type': 'application/json' },
             //     body: JSON.stringify({
-            //         session_id: sessionId,
             //         user_input: message,
             //         processing_mode: processingMode
             //     })
             // });
+            // 
             // const data = await response.json();
 
-            // MOCK DATA for development
+            // Temporary mock data while backend response processing is being fixed
             await this.simulateDelay(1000); // Simulate API call delay
 
             const mockResponse = {

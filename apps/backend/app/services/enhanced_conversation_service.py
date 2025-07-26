@@ -80,11 +80,12 @@ class EnhancedConversationService:
     while maintaining compatibility with existing conversation flows.
     """
     
-    def __init__(self, ai_manager: Optional[AgentManager] = None):
+    def __init__(self, ai_manager: Optional[AgentManager] = None, db_session: Optional[Session] = None):
         self.ai_manager = ai_manager
+        self.db_session = db_session
         
         # Initialize component services
-        self.conversation_service = ConversationalResumeBuilder
+        # Note: ConversationalResumeBuilder needs a db session, we'll create it when needed
         self.rocket_service = ROCKETFrameworkService(ai_manager)
         self.psychologist_service = CareerPsychologistService(ai_manager)
 
@@ -109,8 +110,20 @@ class EnhancedConversationService:
                     raise ServiceException(f"Conversation session {existing_conversation_id} not found")
             else:
                 # Create new conversation session using existing service
-                conversation_response = await self.conversation_service.start_session(user_id)
-                conversation_session_id = conversation_response.get('session_id')
+                from sqlalchemy import create_engine
+                from sqlalchemy.orm import sessionmaker
+                from ..core.config import settings
+                
+                # Create sync session for ConversationalResumeBuilder  
+                sync_engine = create_engine(settings.SYNC_DATABASE_URL)
+                SyncSession = sessionmaker(bind=sync_engine)
+                sync_session = SyncSession()
+                
+                conversation_service = ConversationalResumeBuilder(sync_session)
+                conversation_response = await conversation_service.initiate_conversation(user_id)
+                conversation_session_id = conversation_response.session_id
+                
+                sync_session.close()
                 conversation_session = await session.get(ConversationSession, conversation_session_id)
             
             # Create ROCKET session
