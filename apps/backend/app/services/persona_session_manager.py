@@ -21,7 +21,7 @@ class PersonaSessionManager:
     def __init__(self, db: Session):
         self.db = db
         self.persona_definitions = PersonaDefinitions.get_all_personas()
-        self.rocket_framework = ROCKETFramework(db)
+        self.rocket_framework = ROCKETFramework()
         
     def initialize_personas(self) -> bool:
         """Initialize persona profiles in database if they don't exist"""

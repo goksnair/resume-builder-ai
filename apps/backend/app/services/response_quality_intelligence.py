@@ -506,7 +506,7 @@ Quality Analysis:
 - Overall: {quality.overall_score}
 
 Top Achievements:
-{json.dumps([{{"action": a.action, "result": a.result, "quantification": a.quantification} for a in achievements[:2]], indent=2)}
+{json.dumps([{"action": a.action, "result": a.result, "quantification": a.quantification} for a in achievements[:2]], indent=2)}
 
 Generate follow-up questions that:
 1. Address the lowest scoring quality areas

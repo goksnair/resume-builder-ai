@@ -572,114 +572,114 @@ ${!forPDF ? '</body>\n</html>' : ''}`;
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredTemplates.length > 0 ? (
                         filteredTemplates.map((template) => (
-                        <div key={template.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                            {/* Template Preview */}
-                            <div className="h-48 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-                                <div className="text-center">
-                                    <Briefcase className="w-12 h-12 text-blue-600 mx-auto mb-2" />
-                                    <p className="text-sm text-gray-600">Preview Available</p>
-                                </div>
-                            </div>
-
-                            {/* Template Info */}
-                            <div className="p-6">
-                                <div className="flex items-start justify-between mb-3">
-                                    <h3 className="text-lg font-semibold text-gray-900 leading-tight">
-                                        {template.name}
-                                    </h3>
-                                    <div className="flex items-center gap-1 text-sm text-yellow-600">
-                                        <Star className="w-4 h-4 fill-current" />
-                                        {template.rating}
+                            <div key={template.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                                {/* Template Preview */}
+                                <div className="h-48 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+                                    <div className="text-center">
+                                        <Briefcase className="w-12 h-12 text-blue-600 mx-auto mb-2" />
+                                        <p className="text-sm text-gray-600">Preview Available</p>
                                     </div>
                                 </div>
 
-                                <p className="text-gray-600 text-sm mb-4">
-                                    {template.description}
-                                </p>
+                                {/* Template Info */}
+                                <div className="p-6">
+                                    <div className="flex items-start justify-between mb-3">
+                                        <h3 className="text-lg font-semibold text-gray-900 leading-tight">
+                                            {template.name}
+                                        </h3>
+                                        <div className="flex items-center gap-1 text-sm text-yellow-600">
+                                            <Star className="w-4 h-4 fill-current" />
+                                            {template.rating}
+                                        </div>
+                                    </div>
 
-                                <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
-                                    <span>{template.level}</span>
-                                    <span>{template.downloads.toLocaleString()} downloads</span>
-                                </div>
+                                    <p className="text-gray-600 text-sm mb-4">
+                                        {template.description}
+                                    </p>
 
-                                {/* Action Buttons */}
-                                <div className="flex gap-1">
-                                    <button
-                                        onClick={() => handlePreview(template.id)}
-                                        className="flex-1 flex items-center justify-center gap-1 px-2 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors text-sm"
-                                    >
-                                        <Eye className="w-3 h-3" />
-                                        Preview
-                                    </button>
-                                    <button
-                                        onClick={() => handleApplyTemplate(template.id)}
-                                        className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md transition-colors text-sm ${appliedTemplate?.id === template.id
-                                            ? 'bg-green-600 text-white'
-                                            : 'bg-purple-600 text-white hover:bg-purple-700'
-                                            }`}
-                                    >
-                                        {appliedTemplate?.id === template.id ? (
-                                            <>
-                                                <CheckCircle className="w-3 h-3" />
-                                                Selected
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Briefcase className="w-3 h-3" />
-                                                Select
-                                            </>
-                                        )}
-                                    </button>
-                                    <button
-                                        onClick={() => handleDownload(template.id)}
-                                        disabled={downloadStatus[template.id] === 'downloading'}
-                                        className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md transition-colors text-sm ${downloadStatus[template.id] === 'downloading'
-                                            ? 'bg-gray-400 text-white cursor-not-allowed'
-                                            : downloadStatus[template.id] === 'success'
+                                    <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
+                                        <span>{template.level}</span>
+                                        <span>{template.downloads.toLocaleString()} downloads</span>
+                                    </div>
+
+                                    {/* Action Buttons */}
+                                    <div className="flex gap-1">
+                                        <button
+                                            onClick={() => handlePreview(template.id)}
+                                            className="flex-1 flex items-center justify-center gap-1 px-2 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors text-sm"
+                                        >
+                                            <Eye className="w-3 h-3" />
+                                            Preview
+                                        </button>
+                                        <button
+                                            onClick={() => handleApplyTemplate(template.id)}
+                                            className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md transition-colors text-sm ${appliedTemplate?.id === template.id
                                                 ? 'bg-green-600 text-white'
-                                                : downloadStatus[template.id] === 'error'
-                                                    ? 'bg-red-600 text-white'
-                                                    : 'bg-blue-600 text-white hover:bg-blue-700'
-                                            }`}
-                                    >
-                                        {downloadStatus[template.id] === 'downloading' ? (
-                                            <>
-                                                <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                                <span className="hidden sm:inline">Download</span>
-                                            </>
-                                        ) : downloadStatus[template.id] === 'success' ? (
-                                            <>
-                                                <CheckCircle className="w-3 h-3" />
-                                                <span className="hidden sm:inline">Downloaded</span>
-                                            </>
-                                        ) : downloadStatus[template.id] === 'error' ? (
-                                            <>
-                                                <X className="w-3 h-3" />
-                                                <span className="hidden sm:inline">Failed</span>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Download className="w-3 h-3" />
-                                                <span className="hidden sm:inline">Download</span>
-                                            </>
-                                        )}
-                                    </button>
+                                                : 'bg-purple-600 text-white hover:bg-purple-700'
+                                                }`}
+                                        >
+                                            {appliedTemplate?.id === template.id ? (
+                                                <>
+                                                    <CheckCircle className="w-3 h-3" />
+                                                    Selected
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Briefcase className="w-3 h-3" />
+                                                    Select
+                                                </>
+                                            )}
+                                        </button>
+                                        <button
+                                            onClick={() => handleDownload(template.id)}
+                                            disabled={downloadStatus[template.id] === 'downloading'}
+                                            className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md transition-colors text-sm ${downloadStatus[template.id] === 'downloading'
+                                                ? 'bg-gray-400 text-white cursor-not-allowed'
+                                                : downloadStatus[template.id] === 'success'
+                                                    ? 'bg-green-600 text-white'
+                                                    : downloadStatus[template.id] === 'error'
+                                                        ? 'bg-red-600 text-white'
+                                                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                                                }`}
+                                        >
+                                            {downloadStatus[template.id] === 'downloading' ? (
+                                                <>
+                                                    <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                                    <span className="hidden sm:inline">Download</span>
+                                                </>
+                                            ) : downloadStatus[template.id] === 'success' ? (
+                                                <>
+                                                    <CheckCircle className="w-3 h-3" />
+                                                    <span className="hidden sm:inline">Downloaded</span>
+                                                </>
+                                            ) : downloadStatus[template.id] === 'error' ? (
+                                                <>
+                                                    <X className="w-3 h-3" />
+                                                    <span className="hidden sm:inline">Failed</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Download className="w-3 h-3" />
+                                                    <span className="hidden sm:inline">Download</span>
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+                        ))
+                    ) : (
+                        <div className="col-span-full text-center py-12">
+                            <Briefcase className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                            <h3 className="text-xl font-semibold text-gray-600 mb-2">No templates found</h3>
+                            <p className="text-gray-500">
+                                {templates.length === 0
+                                    ? 'No templates available at the moment.'
+                                    : `No templates found for the "${templateCategories.find(c => c.id === selectedCategory)?.label}" category.`
+                                }
+                            </p>
                         </div>
-                    ))
-                ) : (
-                    <div className="col-span-full text-center py-12">
-                        <Briefcase className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-gray-600 mb-2">No templates found</h3>
-                        <p className="text-gray-500">
-                            {templates.length === 0 
-                                ? 'No templates available at the moment.'
-                                : `No templates found for the "${templateCategories.find(c => c.id === selectedCategory)?.label}" category.`
-                            }
-                        </p>
-                    </div>
-                )}
+                    )}
                 </div>
 
                 {/* No templates message */}

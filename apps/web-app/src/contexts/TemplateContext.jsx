@@ -28,7 +28,7 @@ export const TemplateProvider = ({ children }) => {
         if (!template || !template.preview) return;
 
         console.log('🎨 Applying template styles:', template.name);
-        
+
         const root = document.documentElement;
         const colors = template.preview.colors;
         const uiTheme = template.preview.uiTheme;

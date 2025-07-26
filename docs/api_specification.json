@@ -1,0 +1,160 @@
+{
+  "title": "Resume Builder API Specification",
+  "version": "1.0.0",
+  "description": "API endpoints for the AI-powered Resume Builder",
+  "base_url": "http://localhost:8000",
+  "endpoints": {
+    "resume_crud": {
+      "POST /api/v1/resumes": {
+        "description": "Create a new resume",
+        "request_body": {
+          "user_id": "string",
+          "data": "resume_data_object",
+          "title": "string (optional)"
+        },
+        "response": {
+          "id": "string",
+          "user_id": "string",
+          "data": "resume_data_object",
+          "created_at": "datetime",
+          "updated_at": "datetime"
+        }
+      },
+      "GET /api/v1/resumes/{resume_id}": {
+        "description": "Get a specific resume",
+        "response": "resume_object"
+      },
+      "PUT /api/v1/resumes/{resume_id}": {
+        "description": "Update a resume",
+        "request_body": {
+          "data": "resume_data_object"
+        },
+        "response": "updated_resume_object"
+      },
+      "DELETE /api/v1/resumes/{resume_id}": {
+        "description": "Delete a resume",
+        "response": {
+          "success": true
+        }
+      },
+      "GET /api/v1/users/{user_id}/resumes": {
+        "description": "Get all resumes for a user",
+        "response": [
+          "resume_object_list"
+        ]
+      }
+    },
+    "ats_analysis": {
+      "POST /api/v1/analysis/ats": {
+        "description": "Analyze resume for ATS compatibility",
+        "request_body": {
+          "resume_data": "resume_data_object",
+          "job_description": "string (optional)",
+          "analysis_type": "string (basic|comprehensive)"
+        },
+        "response": {
+          "overall_score": "integer",
+          "breakdown": "score_breakdown_object",
+          "suggestions": [
+            "string_array"
+          ],
+          "missing_keywords": [
+            "string_array"
+          ],
+          "strength_areas": [
+            "string_array"
+          ]
+        }
+      },
+      "POST /api/v1/analysis/keywords": {
+        "description": "Get keyword suggestions for a section",
+        "request_body": {
+          "section": "string",
+          "content": "string",
+          "job_description": "string (optional)"
+        },
+        "response": {
+          "suggestions": [
+            "string_array"
+          ],
+          "priority_keywords": [
+            "string_array"
+          ]
+        }
+      }
+    },
+    "ai_enhancement": {
+      "POST /api/v1/ai/enhance": {
+        "description": "Enhance content using AI",
+        "request_body": {
+          "section": "string",
+          "content": "string",
+          "context": "object",
+          "enhancement_type": "string"
+        },
+        "response": {
+          "enhanced_content": "string",
+          "improvements": [
+            "string_array"
+          ]
+        }
+      },
+      "POST /api/v1/ai/generate-summary": {
+        "description": "Generate professional summary",
+        "request_body": {
+          "resume_data": "resume_data_object",
+          "job_description": "string (optional)",
+          "tone": "string"
+        },
+        "response": {
+          "generated_summary": "string",
+          "tone": "string",
+          "keywords_included": [
+            "string_array"
+          ]
+        }
+      }
+    },
+    "templates": {
+      "GET /api/v1/templates": {
+        "description": "Get available resume templates",
+        "query_params": {
+          "category": "string (optional)"
+        },
+        "response": [
+          "template_object_list"
+        ]
+      },
+      "POST /api/v1/templates/apply": {
+        "description": "Apply template to resume data",
+        "request_body": {
+          "resume_data": "resume_data_object",
+          "template_id": "string"
+        },
+        "response": {
+          "formatted_resume": "formatted_resume_object"
+        }
+      }
+    },
+    "export": {
+      "POST /api/v1/export/pdf": {
+        "description": "Export resume as PDF",
+        "request_body": {
+          "resume_data": "resume_data_object",
+          "template_id": "string (optional)",
+          "format": "pdf"
+        },
+        "response": "binary_pdf_data"
+      },
+      "POST /api/v1/export/docx": {
+        "description": "Export resume as Word document",
+        "request_body": {
+          "resume_data": "resume_data_object",
+          "template_id": "string (optional)",
+          "format": "docx"
+        },
+        "response": "binary_docx_data"
+      }
+    }
+  }
+}

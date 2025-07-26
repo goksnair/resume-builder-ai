@@ -39,14 +39,8 @@ const Navigation = () => {
             description: 'Resume optimization'
         },
         {
-            path: '/templates',
-            label: 'Templates',
-            icon: Palette,
-            description: 'Design explorer'
-        },
-        {
             path: '/professional-templates',
-            label: 'Professional',
+            label: 'Professional Templates',
             icon: Zap,
             description: 'Job-specific templates'
         }

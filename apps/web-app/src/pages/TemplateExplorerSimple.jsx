@@ -1812,8 +1812,8 @@ const TemplateExplorerPage = () => {
                                     <div
                                         key={key}
                                         className={`p-4 rounded-lg border cursor-pointer transition-all duration-200 hover:shadow-md ${selectedTemplate === key
-                                                ? 'border-blue-500 bg-blue-50'
-                                                : 'border-gray-200 hover:border-gray-300'
+                                            ? 'border-blue-500 bg-blue-50'
+                                            : 'border-gray-200 hover:border-gray-300'
                                             }`}
                                         onClick={() => setSelectedTemplate(key)}
                                     >
@@ -1850,8 +1850,8 @@ const TemplateExplorerPage = () => {
                                     <div
                                         key={key}
                                         className={`p-3 rounded-lg border cursor-pointer transition-all duration-200 hover:shadow-md ${selectedColorScheme === key
-                                                ? 'border-blue-500 bg-blue-50'
-                                                : 'border-gray-200 hover:border-gray-300'
+                                            ? 'border-blue-500 bg-blue-50'
+                                            : 'border-gray-200 hover:border-gray-300'
                                             }`}
                                         onClick={() => setSelectedColorScheme(key)}
                                     >

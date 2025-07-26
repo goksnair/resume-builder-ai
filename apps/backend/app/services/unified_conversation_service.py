@@ -34,7 +34,7 @@ class UnifiedConversationOrchestrator:
     def __init__(self, db: Session):
         self.db = db
         self.agent_manager = AgentManager(strategy="json", model="gemma3:4b")
-        self.rocket_framework = ROCKETFramework(db)
+        self.rocket_framework = ROCKETFramework()
         self.psychology_service = DrMayaInsightService(db)
         self.persona_manager = PersonaSessionManager(db)
         

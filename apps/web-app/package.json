@@ -12,15 +12,22 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "health-check": "node ../../scripts/health-check.js",
+    "pre-deploy": "npm run health-check && npm run lint && npm run build",
+    "dev-safe": "npm run health-check && npm run dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.32.0",
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.31.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
     "postcss": "^8.4.49",
     "prettier": "^3.6.2",
     "tailwindcss": "^3.4.16",
@@ -39,6 +46,6 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.7.1",
-    "tailwind-merge": "^3.2.0"
+    "tailwind-merge": "^3.3.1"
   }
 }
