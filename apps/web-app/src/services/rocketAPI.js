@@ -109,10 +109,6 @@ class ROCKETAPIService {
             this.sessionId = mockSessionData.session_id;
             console.log('🚀 ROCKET Session Started (MOCK):', mockSessionData);
             return mockSessionData;
-
-        } catch (error) {
-            console.error('Failed to start ROCKET session:', error);
-            throw new Error('Session initialization failed');
         }
     }
 
