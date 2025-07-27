@@ -6,14 +6,17 @@ from typing import List, Optional, Literal
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "Resume Matcher"
+    PROJECT_NAME: str = "Resume Builder AI"
     FRONTEND_PATH: str = os.path.join(os.path.dirname(__file__), "frontend", "assets")
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
-    SYNC_DATABASE_URL: Optional[str]
-    ASYNC_DATABASE_URL: Optional[str]
-    SESSION_SECRET_KEY: Optional[str]
+    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://127.0.0.1:3000", "https://resume-builder-ai.vercel.app"]
+    SYNC_DATABASE_URL: Optional[str] = None
+    ASYNC_DATABASE_URL: Optional[str] = None
+    DATABASE_URL: Optional[str] = None
+    SESSION_SECRET_KEY: Optional[str] = "dev-secret-key-change-in-production"
     DB_ECHO: bool = False
     PYTHONDONTWRITEBYTECODE: int = 1
+    ENV: str = "local"
+    PORT: int = 8000
 
     model_config = SettingsConfigDict(
         env_file=os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, ".env"),

@@ -19,9 +19,14 @@ from ..models.base import Base
 
 class _DatabaseSettings:
     """Pulled from environment once at import-time."""
-
-    SYNC_DATABASE_URL: str = settings.SYNC_DATABASE_URL
-    ASYNC_DATABASE_URL: str = settings.ASYNC_DATABASE_URL
+    
+    # Use DATABASE_URL from environment, fallback to specific URLs, then SQLite
+    DATABASE_URL = settings.DATABASE_URL or settings.SYNC_DATABASE_URL
+    if not DATABASE_URL:
+        DATABASE_URL = "sqlite:///./resume_builder.db"
+    
+    SYNC_DATABASE_URL: str = DATABASE_URL
+    ASYNC_DATABASE_URL: str = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://") if DATABASE_URL.startswith("postgresql://") else DATABASE_URL.replace("sqlite:///", "sqlite+aiosqlite:///")
     DB_ECHO: bool = settings.DB_ECHO
 
     DB_CONNECT_ARGS = (

@@ -20,24 +20,24 @@ function App() {
     <ErrorBoundary>
       <TemplateProvider>
         <Router>
-          <div style={{ background: '#ffe', padding: '1rem', color: '#222', fontWeight: 'bold', fontSize: '1.2rem', borderBottom: '2px solid #ccc' }}>
-            Root Rendered: App.jsx
-          </div>
-          <div className="App min-h-screen flex flex-col">
+          <div className="min-h-screen bg-gray-50">
             <Navigation />
             <Breadcrumb />
-            <main className="flex-1">
+            <main className="container mx-auto px-4 py-8">
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/ai" element={<EnhancedAIDashboard />} />
                 <Route path="/ai-legacy" element={<AIDashboard />} />
                 <Route path="/professional-templates" element={<ProfessionalTemplates />} />
+                
                 {/* Redirect resume builder routes to AI dashboard */}
                 <Route path="/builder" element={<Navigate to="/ai?tab=builder" replace />} />
                 <Route path="/resume-builder" element={<Navigate to="/ai?tab=builder" replace />} />
+                
                 {/* Admin routes - removed from user-facing navigation */}
                 <Route path="/admin/template-explorer" element={<TemplateExplorerPage />} />
                 <Route path="/admin/templates" element={<TemplateExplorerPage />} />
+                
                 {/* Test route for debug */}
                 <Route path="/test" element={<div style={{ color: 'green', fontSize: '2rem' }}>Test Route Works!</div>} />
               </Routes>
