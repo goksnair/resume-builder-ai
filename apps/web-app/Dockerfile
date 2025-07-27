@@ -11,6 +11,9 @@ RUN npm install
 # Copy source code
 COPY . .
 
+# Set environment variable for build
+ENV VITE_API_URL=https://resume-builder-ai-production.up.railway.app
+
 # Build the app
 RUN npm run build
 
