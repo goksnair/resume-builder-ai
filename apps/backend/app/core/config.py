@@ -12,6 +12,7 @@ class Settings(BaseSettings):
         "http://localhost:3000", 
         "http://127.0.0.1:3000",
         "https://resume-builder-ai.vercel.app",
+        "https://web-f87c81o7b-gokuls-projects-199eba9b.vercel.app",
         "https://*.railway.app"
     ]
     SYNC_DATABASE_URL: Optional[str] = None
