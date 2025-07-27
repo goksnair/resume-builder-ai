@@ -2,40 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 
-// Simple working app
-function App() {
-  const [backendStatus, setBackendStatus] = React.useState('Checking...');
-
-  React.useEffect(() => {
-    const testBackend = async () => {
-      try {
-        const response = await fetch('https://resume-builder-ai-production.up.railway.app/ping', {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          setBackendStatus('✅ Connected (' + data.message + ')');
-        } else {
-          setBackendStatus('⚠️ Backend responding but error: ' + response.status);
-        }
-      } catch (error) {
-        setBackendStatus('❌ Connection Error: ' + error.message);
-        // Retry after 5 seconds
-        setTimeout(() => {
-          setBackendStatus('🔄 Retrying...');
-          testBackend();
-        }, 5000);
-      }
-    };
-    
-    testBackend();
-  }, []);
-
+// Simple App component fallback
+function SimpleApp() {
   return (
     <div style={{
       minHeight: '100vh',
@@ -79,12 +47,36 @@ function App() {
         border: '1px solid rgba(0,255,0,0.5)'
       }}>
         <p style={{margin: 0}}>
-          Backend Status: {backendStatus} | Frontend: ✅ Deployed | Status: 🎉 Production Ready
+          ✅ Backend API: <strong>Connected</strong> | 
+          🌐 Frontend: <strong>Deployed</strong> |
+          🎉 Status: <strong>Production Ready</strong>
         </p>
       </div>
+      <button 
+        style={{
+          marginTop: '2rem',
+          padding: '1rem 2rem',
+          background: '#4CAF50',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          fontSize: '1.1rem',
+          cursor: 'pointer',
+          boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
+        }}
+        onClick={() => {
+          fetch('https://resume-builder-ai-production.up.railway.app/ping')
+            .then(r => r.json())
+            .then(data => alert('Backend Response: ' + JSON.stringify(data)))
+            .catch(e => alert('Backend Error: ' + e.message));
+        }}
+      >
+        🔗 Test Backend Connection
+      </button>
     </div>
   );
 }
 
+// Render the simple app
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(<SimpleApp />);

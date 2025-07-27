@@ -58,10 +58,12 @@ async def root():
 
 @app.get("/ping")
 async def ping():
+    logger.info("Ping endpoint called successfully")
     return {
         "message": "pong", 
         "status": "healthy",
-        "database": "reachable"
+        "database": "reachable",
+        "timestamp": "2025-07-27"
     }
 
 @app.get("/health")
