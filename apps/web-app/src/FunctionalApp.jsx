@@ -1,4 +1,5 @@
 import React from 'react';
+import EnhancedHeroSection from './components/EnhancedHeroSection';
 
 function FunctionalApp() {
   const [currentPage, setCurrentPage] = React.useState('home');
@@ -359,36 +360,105 @@ function FunctionalApp() {
     switch(currentPage) {
       case 'home':
         return (
-          <div style={{ textAlign: 'center' }}>
-            <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>🚀 Resume Builder AI</h2>
-            <p style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>
-              AI-Powered Resume Builder with ROCKET Framework - Now Fully Functional!
-            </p>
+          <div style={{ marginTop: '-2rem', marginLeft: '-2rem', marginRight: '-2rem' }}>
+            <EnhancedHeroSection 
+              onGetStarted={() => setCurrentPage('builder')}
+            />
+            
+            {/* Quick Access Section */}
             <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-              gap: '1rem',
-              maxWidth: '800px',
-              margin: '0 auto'
+              background: 'rgba(0,0,0,0.1)', 
+              padding: '4rem 2rem',
+              textAlign: 'center' 
             }}>
-              {Object.entries(pages).filter(([key]) => key !== 'home').map(([key, title]) => (
-                <button
-                  key={key}
-                  onClick={() => setCurrentPage(key)}
-                  style={{
-                    background: 'rgba(66, 153, 225, 0.8)',
-                    border: '1px solid rgba(66, 153, 225, 1)',
-                    color: 'white',
-                    padding: '1.5rem',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    fontSize: '1rem',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {title}
-                </button>
-              ))}
+              <h3 style={{ 
+                fontSize: '2rem', 
+                marginBottom: '1rem', 
+                color: 'white',
+                fontFamily: 'Inter, -apple-system, sans-serif'
+              }}>
+                Choose Your Journey
+              </h3>
+              <p style={{ 
+                fontSize: '1.1rem', 
+                marginBottom: '2rem', 
+                color: 'rgba(255,255,255,0.8)',
+                maxWidth: '600px',
+                margin: '0 auto 2rem auto'
+              }}>
+                Explore our comprehensive suite of AI-powered career tools designed to elevate your professional presence.
+              </p>
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+                gap: '1.5rem',
+                maxWidth: '1000px',
+                margin: '0 auto'
+              }}>
+                {Object.entries(pages).filter(([key]) => key !== 'home').map(([key, title]) => {
+                  const descriptions = {
+                    builder: 'Upload and optimize your resume with AI-powered analysis',
+                    templates: 'Choose from professional, ATS-optimized resume templates',
+                    analysis: 'Get detailed insights and improvement recommendations',
+                    rocket: 'Discover your career psychology with Dr. Maya'
+                  };
+                  
+                  const icons = {
+                    builder: '📝',
+                    templates: '📊', 
+                    analysis: '🧠',
+                    rocket: '🚀'
+                  };
+
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => setCurrentPage(key)}
+                      style={{
+                        background: 'rgba(255,255,255,0.1)',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        color: 'white',
+                        padding: '2rem',
+                        borderRadius: '12px',
+                        cursor: 'pointer',
+                        fontSize: '1rem',
+                        textAlign: 'left',
+                        transition: 'all 0.3s ease',
+                        backdropFilter: 'blur(10px)'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.transform = 'translateY(-4px)';
+                        e.target.style.background = 'rgba(255,255,255,0.15)';
+                        e.target.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.transform = 'translateY(0)';
+                        e.target.style.background = 'rgba(255,255,255,0.1)';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                    >
+                      <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>
+                        {icons[key]}
+                      </div>
+                      <h4 style={{ 
+                        fontSize: '1.3rem', 
+                        fontWeight: 'bold', 
+                        marginBottom: '0.5rem',
+                        fontFamily: 'Inter, -apple-system, sans-serif'
+                      }}>
+                        {title}
+                      </h4>
+                      <p style={{ 
+                        fontSize: '0.9rem', 
+                        color: 'rgba(255,255,255,0.8)',
+                        lineHeight: '1.4'
+                      }}>
+                        {descriptions[key]}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         );
@@ -639,8 +709,8 @@ function FunctionalApp() {
 
       {/* Main Content */}
       <main style={{
-        padding: '2rem',
-        maxWidth: '1200px',
+        padding: currentPage === 'home' ? '0' : '2rem',
+        maxWidth: currentPage === 'home' ? 'none' : '1200px',
         margin: '0 auto'
       }}>
         {renderPage()}
