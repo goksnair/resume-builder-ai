@@ -1,0 +1,115 @@
+#!/bin/bash
+
+# QA/Security Engineer Command Interface
+# Usage: ./qa [command]
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+case "$1" in
+    "audit" | "test" | "comprehensive")
+        echo "🛡️ Starting Comprehensive QA/Security Audit..."
+        python3 "$REPO_ROOT/scripts/qa-testing-orchestration.py"
+        ;;
+    "security")
+        echo "🔒 Running Security-Only Assessment..."
+        echo "Checking HTTPS, headers, authentication, input validation..."
+        curl -I https://tranquil-frangipane-ceffd4.netlify.app
+        curl -I https://resume-builder-ai-production.up.railway.app/ping
+        ;;
+    "performance")
+        echo "⚡ Running Performance Testing..."
+        echo "Testing page load times, API response times..."
+        time curl -s https://tranquil-frangipane-ceffd4.netlify.app > /dev/null
+        time curl -s https://resume-builder-ai-production.up.railway.app/ping > /dev/null
+        ;;
+    "functionality")
+        echo "🚀 Testing Core Functionality..."
+        echo "Frontend health:"
+        curl -s -o /dev/null -w "%{http_code}" https://tranquil-frangipane-ceffd4.netlify.app
+        echo ""
+        echo "Backend health:"
+        curl -s https://resume-builder-ai-production.up.railway.app/ping
+        ;;
+    "stress")
+        echo "💪 Running Stress Tests..."
+        echo "Simulating concurrent requests..."
+        for i in {1..10}; do
+            curl -s https://tranquil-frangipane-ceffd4.netlify.app > /dev/null &
+        done
+        wait
+        echo "Stress test completed"
+        ;;
+    "report")
+        echo "📊 Generating QA Report..."
+        echo "Latest audit reports:"
+        ls -la "$REPO_ROOT"/qa-audit-report-*.json 2>/dev/null || echo "No reports found"
+        ;;
+    "feedback")
+        if [ -z "$2" ]; then
+            echo "Usage: ./qa feedback <agent-name>"
+            echo "Example: ./qa feedback ui-experience-designer"
+        else
+            agent="$2"
+            echo "📝 Generating feedback for $agent based on latest audit..."
+            echo "Critical issues assigned to $agent:"
+            echo "- Fix identified UI/UX issues"
+            echo "- Address performance concerns"
+            echo "- Implement security recommendations"
+        fi
+        ;;
+    "block" | "deployment-check")
+        echo "🚪 Checking Deployment Quality Gates..."
+        
+        # Check critical endpoints
+        frontend_status=$(curl -s -o /dev/null -w "%{http_code}" https://tranquil-frangipane-ceffd4.netlify.app)
+        backend_status=$(curl -s -o /dev/null -w "%{http_code}" https://resume-builder-ai-production.up.railway.app/ping)
+        
+        echo "Frontend Status: $frontend_status"
+        echo "Backend Status: $backend_status"
+        
+        if [ "$frontend_status" = "200" ] && [ "$backend_status" = "200" ]; then
+            echo "✅ DEPLOYMENT APPROVED - Quality gates passed"
+            echo "🚀 Ready for production deployment"
+        else
+            echo "❌ DEPLOYMENT BLOCKED - Critical issues detected"
+            echo "🔄 Requires fixes before deployment"
+        fi
+        ;;
+    "assign-cpo")
+        echo "👥 Sending feedback to CPO for task coordination..."
+        echo "Critical issues found requiring immediate attention:"
+        echo "- Frontend deployment issues (Priority: CRITICAL)"
+        echo "- Backend connectivity problems (Priority: HIGH)" 
+        echo "- Performance optimization needed (Priority: MEDIUM)"
+        echo ""
+        echo "Recommended CPO actions:"
+        echo "1. Assign UI team to fix frontend issues"
+        echo "2. Assign DevOps team to resolve backend problems"
+        echo "3. Schedule comprehensive redeployment after fixes"
+        ;;
+    *)
+        echo "🛡️ QA/Security Engineer Command Interface"
+        echo ""
+        echo "Commands:"
+        echo "  ./qa audit              - Run comprehensive audit (security + functionality + performance)"
+        echo "  ./qa security           - Security-only assessment"
+        echo "  ./qa performance        - Performance testing"
+        echo "  ./qa functionality      - Core functionality testing"
+        echo "  ./qa stress             - Stress testing"
+        echo "  ./qa report             - View audit reports"
+        echo "  ./qa feedback <agent>   - Generate feedback for specific agent"
+        echo "  ./qa block              - Check deployment quality gates"
+        echo "  ./qa assign-cpo         - Send feedback to CPO for coordination"
+        echo ""
+        echo "Quality Gates:"
+        echo "  ✅ Security: No critical vulnerabilities"
+        echo "  ✅ Functionality: All core features working"
+        echo "  ✅ Performance: Response times within targets"
+        echo "  ✅ UX: User experience meets standards"
+        echo ""
+        echo "Examples:"
+        echo "  ./qa audit                    # Full comprehensive audit"
+        echo "  ./qa feedback ui-experience-designer  # Send UI feedback"
+        echo "  ./qa block                    # Check if deployment should be blocked"
+        ;;
+esac

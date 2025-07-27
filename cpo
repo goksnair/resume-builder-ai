@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# CPO/Product Manager Command Interface
+# Usage: ./cpo [command]
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+case "$1" in
+    "init" | "start" | "daily")
+        echo "🎯 Starting CPO Daily Orchestration..."
+        python3 "$REPO_ROOT/scripts/cpo-daily-orchestration.py"
+        ;;
+    "status")
+        echo "📊 Current Production Status:"
+        echo "Frontend: https://tranquil-frangipane-ceffd4.netlify.app"
+        echo "Backend: https://resume-builder-ai-production.up.railway.app"
+        echo "Repository: https://github.com/goksnair/resume-builder-ai.git"
+        ;;
+    "deploy")
+        echo "🚀 Starting End-of-Session Deployment..."
+        echo "1. Building frontend..."
+        cd "$REPO_ROOT/apps/web-app" && npm run build
+        echo "2. Running auto-save..."
+        python3 "$REPO_ROOT/scripts/safe-auto-save.py"
+        echo "3. Deployment ready!"
+        echo "   Drag apps/web-app/dist to Netlify dashboard"
+        ;;
+    "agents")
+        echo "👥 Available Agents:"
+        python3 "$REPO_ROOT/scripts/agent-manager.py" list
+        ;;
+    "assign")
+        if [ -z "$2" ] || [ -z "$3" ]; then
+            echo "Usage: ./cpo assign <agent> <task>"
+            echo "Example: ./cpo assign ui-experience-designer 'Fix navigation issues'"
+        else
+            agent="$2"
+            shift 2
+            task="$*"
+            python3 "$REPO_ROOT/scripts/agent-manager.py" assign "$agent" "$task"
+        fi
+        ;;
+    *)
+        echo "🎯 CPO/Product Manager Command Interface"
+        echo ""
+        echo "Commands:"
+        echo "  ./cpo init              - Start daily session orchestration"
+        echo "  ./cpo status            - Check production status"
+        echo "  ./cpo agents            - List all available agents"
+        echo "  ./cpo assign <agent> <task> - Assign task to agent"
+        echo "  ./cpo deploy            - Run end-of-session deployment"
+        echo ""
+        echo "Examples:"
+        echo "  ./cpo init"
+        echo "  ./cpo assign ui-experience-designer 'Fix frontend issues'"
+        echo "  ./cpo deploy"
+        ;;
+esac
