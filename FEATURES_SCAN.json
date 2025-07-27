@@ -1,0 +1,115 @@
+{
+  "frontend": {
+    "components": [
+      {
+        "category": "ui",
+        "files": [
+          "TemplateStatus.jsx",
+          "dialog.jsx",
+          "QuickActions.jsx",
+          "TemplateExplorer.jsx",
+          "Breadcrumb.jsx",
+          "Footer.jsx",
+          "input.jsx",
+          "textarea.jsx",
+          "Navigation.jsx",
+          "button.jsx",
+          "tabs-fallback.jsx",
+          "badge.jsx",
+          "card.jsx",
+          "tabs.jsx"
+        ]
+      },
+      {
+        "category": "resume",
+        "files": [
+          "ResumeBuilderIntegrated.jsx",
+          "ResumeBuilder.jsx"
+        ]
+      },
+      {
+        "category": "ai",
+        "files": [
+          "ResumeUpload.jsx",
+          "JobDescriptionInput.jsx",
+          "AIDashboard.jsx",
+          "ResumeAnalysis.jsx"
+        ]
+      },
+      {
+        "category": "templates",
+        "files": [
+          "ProfessionalTemplatesSimple.jsx",
+          "ProfessionalTemplatesTest.jsx",
+          "ProfessionalTemplatesStable.jsx",
+          "ProfessionalTemplates.jsx"
+        ]
+      },
+      {
+        "category": "rocket",
+        "files": [
+          "EnhancedAIDashboard.jsx",
+          "CareerPsychologistChat.jsx",
+          "ROCKETProgress.jsx",
+          "ResumeBuilder.jsx",
+          "ConversationInterface.jsx"
+        ]
+      },
+      {
+        "category": "conversation",
+        "files": [
+          "ConversationalResumeBuilder.jsx"
+        ]
+      }
+    ],
+    "pages": [
+      "TemplateExplorerPage.jsx",
+      "TemplateExplorerSimple.jsx",
+      "HomePage.jsx"
+    ],
+    "services": [
+      "resume.js",
+      "resumeAPI.js",
+      "api.js",
+      "rocketAPI.js"
+    ],
+    "build_size": "505KB"
+  },
+  "backend": {
+    "api_endpoints": [
+      "conversation_unified",
+      "personas",
+      "resume",
+      "conversation",
+      "job",
+      "rocket_conversation"
+    ],
+    "services": [
+      "resume_service",
+      "unified_conversation_service",
+      "enhanced_career_psychologist",
+      "response_quality_intelligence",
+      "conversation_service",
+      "career_psychologist_service",
+      "persona_session_manager",
+      "rocket_framework_service",
+      "score_improvement_service",
+      "persona_definitions",
+      "job_service",
+      "enhanced_conversation_service",
+      "rocket_framework_helpers",
+      "exceptions"
+    ],
+    "models": [
+      "personas",
+      "user",
+      "resume",
+      "conversation",
+      "job",
+      "association",
+      "base",
+      "rocket_framework"
+    ],
+    "dependencies": []
+  }
+}
