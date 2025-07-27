@@ -2,23 +2,14 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Install serve globally
+RUN npm install -g serve
 
-# Install all dependencies (needed for build)
-RUN npm install
-
-# Copy source code
-COPY . .
-
-# Set environment variable for build
-ENV VITE_API_URL=https://resume-builder-ai-production.up.railway.app
-
-# Build the app
-RUN npm run build
+# Copy the pre-built dist folder
+COPY dist ./dist
 
 # Expose port
 EXPOSE $PORT
 
-# Start the app
-CMD ["npm", "start"]
+# Serve the static files
+CMD ["serve", "dist", "-s", "-p", "$PORT"]
