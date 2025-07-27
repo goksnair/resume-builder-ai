@@ -1,0 +1,79 @@
+{
+  "users": {
+    "user_demo_001": {
+      "id": "user_demo_001",
+      "email": "demo@example.com",
+      "created_at": "2024-01-01T00:00:00Z",
+      "resumes": [
+        "resume_001",
+        "resume_002"
+      ]
+    }
+  },
+  "resumes": {
+    "resume_001": {
+      "id": "resume_001",
+      "user_id": "user_demo_001",
+      "title": "Software Engineer Resume",
+      "data": {
+        "personalInfo": {
+          "fullName": "John Doe",
+          "email": "john.doe@example.com",
+          "phone": "+1 (555) 123-4567",
+          "location": "San Francisco, CA",
+          "linkedin": "linkedin.com/in/johndoe",
+          "portfolio": "johndoe.com"
+        },
+        "summary": "Results-driven software engineer with 5+ years of experience...",
+        "experience": [
+          {
+            "title": "Senior Software Engineer",
+            "company": "Tech Corp",
+            "location": "San Francisco, CA",
+            "startDate": "2022-01",
+            "endDate": "current",
+            "description": "Led development of scalable web applications..."
+          }
+        ],
+        "education": [],
+        "skills": [
+          "JavaScript",
+          "React",
+          "Python",
+          "AWS"
+        ],
+        "certifications": [],
+        "projects": []
+      },
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-01-20T14:22:00Z"
+    }
+  },
+  "analysis_results": {
+    "resume_001_analysis": {
+      "resume_id": "resume_001",
+      "overall_score": 87,
+      "breakdown": {
+        "keywords": 85,
+        "formatting": 92,
+        "structure": 88,
+        "length": 84
+      },
+      "suggestions": [
+        "Add more quantifiable achievements",
+        "Include industry-specific keywords",
+        "Optimize for ATS scanning"
+      ],
+      "missing_keywords": [
+        "project management",
+        "agile",
+        "scrum"
+      ],
+      "strength_areas": [
+        "Technical skills",
+        "Clear structure"
+      ],
+      "analyzed_at": "2024-01-20T14:25:00Z"
+    }
+  }
+}
