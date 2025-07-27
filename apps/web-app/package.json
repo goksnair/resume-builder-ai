@@ -10,13 +10,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && python3 ../../scripts/auto-save-production.py",
     "start": "serve dist -s -p $PORT",
     "preview": "vite preview",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write src/",
     "health-check": "node ../../scripts/health-check.js",
-    "pre-deploy": "npm run health-check && npm run lint && npm run build",
+    "pre-deploy": "npm run health-check && npm run lint && npm run build && python3 ../../scripts/update-implementation-guide.py",
     "dev-safe": "npm run health-check && npm run dev"
   },
   "keywords": [],
