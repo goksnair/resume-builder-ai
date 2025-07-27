@@ -205,6 +205,74 @@ def get_features():
         }
     }
 
+# Additional API endpoints for frontend compatibility
+@app.get("/api/v1/resumes")
+def list_resumes():
+    """List resumes for frontend compatibility"""
+    return {
+        "resumes": [
+            {
+                "id": "sample_resume_1",
+                "filename": "sample_resume.pdf",
+                "created_at": "2025-07-27T21:00:00Z",
+                "status": "processed"
+            }
+        ]
+    }
+
+@app.get("/api/v1/jobs") 
+def list_jobs():
+    """List jobs for frontend compatibility"""
+    return {
+        "jobs": [
+            {
+                "id": "sample_job_1", 
+                "title": "Software Engineer",
+                "company": "Tech Company",
+                "created_at": "2025-07-27T21:00:00Z"
+            }
+        ]
+    }
+
+@app.post("/api/v1/resumes/upload")
+async def upload_resume_v1(file: UploadFile = File(...)):
+    """V1 API endpoint for resume upload"""
+    return await upload_resume(file)
+
+@app.get("/api/v1/conversation/start")
+def start_conversation():
+    """Start conversation for ROCKET Framework"""
+    return start_rocket_session()
+
+@app.get("/api/v1/personas/available")
+def get_available_personas():
+    """Get available AI coaching personas"""
+    return {
+        "personas": [
+            {
+                "id": "career_psychologist",
+                "name": "Dr. Maya Insight",
+                "title": "Career Psychologist",
+                "description": "Psychological analysis and career guidance",
+                "specialties": ["personality assessment", "career alignment", "stress management"]
+            },
+            {
+                "id": "executive_coach", 
+                "name": "Alexandra Sterling",
+                "title": "Executive Coach",
+                "description": "Leadership development and executive presence",
+                "specialties": ["leadership", "executive presence", "strategic thinking"]
+            },
+            {
+                "id": "interview_coach",
+                "name": "Sarah Spotlight", 
+                "title": "Interview Coach",
+                "description": "Interview preparation and performance optimization",
+                "specialties": ["interview techniques", "storytelling", "confidence building"]
+            }
+        ]
+    }
+
 if __name__ == "__main__":
     import uvicorn
     import os
