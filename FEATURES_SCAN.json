@@ -73,7 +73,7 @@
       "api.js",
       "rocketAPI.js"
     ],
-    "build_size": "257KB"
+    "build_size": "297KB"
   },
   "backend": {
     "api_endpoints": [
