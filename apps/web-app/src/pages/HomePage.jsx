@@ -1,38 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FileText, Download, Edit, Brain, BarChart3, Zap, Code, Users, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import EnhancedHeroSection from '@/components/EnhancedHeroSection';
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/ai');
+  };
+
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-6 py-12">
-        <header className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            AI-Powered Resume Builder
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Create professional resumes and get AI-powered optimization suggestions
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 mb-8">
-            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 w-full sm:w-auto">
-              <Link to="/ai">
-                <Brain className="mr-2 h-5 w-5" />
-                Start AI Analysis
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-              <Link to="/templates">
-                <Zap className="mr-2 h-5 w-5" />
-                Browse Templates
-              </Link>
-            </Button>
-          </div>
-          <p className="text-sm text-gray-500">
-            Upload your resume • Get AI insights • Apply professional templates
-          </p>
-        </header>
+    <div className="min-h-screen">
+      {/* Enhanced Hero Section */}
+      <EnhancedHeroSection onGetStarted={handleGetStarted} />
+      
+      {/* Rest of the page content */}
+      <div className="bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="container mx-auto px-6 py-12">
 
         <section className="grid md:grid-cols-3 gap-8 mb-16">
           <Card className="text-center">
@@ -149,13 +136,16 @@ const HomePage = () => {
           <p className="text-xl text-gray-600 mb-8">
             Try our AI-powered analysis and get actionable insights in seconds
           </p>
-          <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-            <Link to="/ai">
-              <Brain className="mr-2 h-5 w-5" />
-              Start AI Analysis
-            </Link>
+          <Button 
+            onClick={handleGetStarted}
+            size="lg" 
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+          >
+            <Brain className="mr-2 h-5 w-5" />
+            Start AI Analysis
           </Button>
         </section>
+        </div>
       </div>
     </div>
   );
