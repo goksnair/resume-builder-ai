@@ -15,7 +15,8 @@ class Settings(BaseSettings):
         "https://web-f87c81o7b-gokuls-projects-199eba9b.vercel.app",
         "https://*.railway.app",
         "https://goksnair.github.io",
-        "https://*.github.io"
+        "https://*.github.io",
+        "https://*.netlify.app"
     ]
     SYNC_DATABASE_URL: Optional[str] = None
     ASYNC_DATABASE_URL: Optional[str] = None
