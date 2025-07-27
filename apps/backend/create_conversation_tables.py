@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
 
 from app.core.config import settings
 from app.models.base import Base
-from app.models.conversation import ConversationSession, ConversationMessage, UserCareerProfile, PersonaSession
+from app.models.conversation import ConversationSession, ConversationMessage, UserCareerProfile
 
 def create_conversation_tables():
     """Create conversation tables in the database"""
@@ -35,15 +35,13 @@ def create_conversation_tables():
         Base.metadata.create_all(bind=engine, tables=[
             ConversationSession.__table__,
             ConversationMessage.__table__,
-            UserCareerProfile.__table__,
-            PersonaSession.__table__
+            UserCareerProfile.__table__
         ])
         
         print("✅ Successfully created conversation tables:")
         print("   - conversation_sessions")
         print("   - conversation_messages") 
         print("   - user_career_profiles")
-        print("   - persona_sessions")
         
         # Verify tables were created
         Session = sessionmaker(bind=engine)

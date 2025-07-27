@@ -13,6 +13,7 @@ class Settings(BaseSettings):
         "http://127.0.0.1:3000",
         "https://resume-builder-ai.vercel.app",
         "https://web-f87c81o7b-gokuls-projects-199eba9b.vercel.app",
+        "https://tranquil-frangipane-ceffd4.netlify.app",
         "https://*.railway.app",
         "https://goksnair.github.io",
         "https://*.github.io",
