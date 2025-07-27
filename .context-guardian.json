@@ -1,0 +1,35 @@
+{
+  "triggers": {
+    "roadmap_changes": [
+      "ROADMAP",
+      "roadmap",
+      "PHASE",
+      "Phase"
+    ],
+    "feature_additions": [
+      "FEATURE",
+      "feature",
+      "ADD",
+      "NEW"
+    ],
+    "implementation_changes": [
+      "IMPLEMENT",
+      "implement",
+      "BUILD",
+      "CREATE"
+    ],
+    "documentation_updates": [
+      "DOC",
+      "doc",
+      "README",
+      "GUIDE"
+    ]
+  },
+  "agents": {
+    "context_saver": "safe-auto-save.py",
+    "implementation_updater": "update-implementation-guide.py",
+    "status_tracker": "auto-save-production.py"
+  },
+  "auto_triggers": true,
+  "min_interval": 300
+}
