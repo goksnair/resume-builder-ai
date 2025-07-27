@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import TestApp from './TestApp.jsx';
+import WorkingApp from './WorkingApp.jsx';
 import './styles/index.css';
 
 // Global error handling
@@ -17,6 +17,6 @@ console.log('🚀 Starting Resume Builder AI - Full Application');
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <TestApp />
+    <WorkingApp />
   </React.StrictMode>
 );
