@@ -1,90 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
 import './styles/index.css';
 
-// Simple working app
-function App() {
-  const [backendStatus, setBackendStatus] = React.useState('Checking...');
+// Global error handling
+window.addEventListener('error', (event) => {
+  console.error('🚨 Global Error:', event.error);
+});
 
-  React.useEffect(() => {
-    const testBackend = async () => {
-      try {
-        const response = await fetch('https://resume-builder-ai-production.up.railway.app/ping', {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          setBackendStatus('✅ Connected (' + data.message + ')');
-        } else {
-          setBackendStatus('⚠️ Backend responding but error: ' + response.status);
-        }
-      } catch (error) {
-        setBackendStatus('❌ Connection Error: ' + error.message);
-        // Retry after 5 seconds
-        setTimeout(() => {
-          setBackendStatus('🔄 Retrying...');
-          testBackend();
-        }, 5000);
-      }
-    };
-    
-    testBackend();
-  }, []);
+window.addEventListener('unhandledrejection', (event) => {
+  console.error('🚨 Unhandled Promise Rejection:', event.reason);
+});
 
-  return (
-    <div style={{
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'white',
-      fontFamily: 'Arial, sans-serif',
-      padding: '2rem'
-    }}>
-      <h1 style={{fontSize: '3rem', marginBottom: '1rem', textAlign: 'center'}}>
-        🚀 Resume Builder AI
-      </h1>
-      <p style={{fontSize: '1.2rem', marginBottom: '2rem', textAlign: 'center'}}>
-        AI-Powered Resume Builder with ROCKET Framework
-      </p>
-      <div style={{
-        background: 'rgba(255,255,255,0.1)',
-        padding: '2rem',
-        borderRadius: '10px',
-        backdropFilter: 'blur(10px)',
-        maxWidth: '600px',
-        textAlign: 'center'
-      }}>
-        <h2 style={{marginBottom: '1rem'}}>✨ Features</h2>
-        <ul style={{textAlign: 'left', listStyle: 'none', padding: 0}}>
-          <li style={{margin: '0.5rem 0'}}>🎯 AI Resume Analysis</li>
-          <li style={{margin: '0.5rem 0'}}>🚀 ROCKET Framework Integration</li>
-          <li style={{margin: '0.5rem 0'}}>💼 Job Matching Algorithm</li>
-          <li style={{margin: '0.5rem 0'}}>🧠 Career Psychology Insights</li>
-          <li style={{margin: '0.5rem 0'}}>📊 Professional Templates</li>
-        </ul>
-      </div>
-      <div style={{
-        marginTop: '2rem',
-        padding: '1rem',
-        background: 'rgba(0,255,0,0.2)',
-        borderRadius: '5px',
-        border: '1px solid rgba(0,255,0,0.5)'
-      }}>
-        <p style={{margin: 0}}>
-          Backend Status: {backendStatus} | Frontend: ✅ Deployed | Status: 🎉 Production Ready
-        </p>
-      </div>
-    </div>
-  );
-}
+console.log('🚀 Starting Resume Builder AI - Full Application');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
