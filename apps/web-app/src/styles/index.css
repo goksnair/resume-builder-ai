@@ -1,9 +1,9 @@
+/* Enhanced UI v2.0 Styles */
+@import './enhanced-ui-v2.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Enhanced UI v2.0 Styles */
-@import './enhanced-ui-v2.css';
 
 @layer base {
   :root {
