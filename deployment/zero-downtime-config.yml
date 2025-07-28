@@ -1,0 +1,270 @@
+# Zero-Downtime Deployment Configuration for ROCKET Framework
+# Ensures continuous service availability during deployments
+
+version: "1.0"
+name: "ROCKET Framework Zero-Downtime Deployment"
+
+# Global configuration
+global:
+  timeout: 600 # 10 minutes maximum deployment time
+  health_check_interval: 5 # seconds
+  health_check_retries: 12 # 1 minute of retries
+  rollback_threshold: 3 # consecutive failures before rollback
+
+# Service definitions
+services:
+  frontend:
+    name: "Frontend (Netlify)"
+    type: "static"
+    provider: "netlify"
+    config:
+      site_id: "${NETLIFY_SITE_ID}"
+      auth_token: "${NETLIFY_AUTH_TOKEN}"
+      build_command: "npm run build"
+      build_directory: "apps/web-app"
+      publish_directory: "dist"
+      environment:
+        VITE_API_URL: "https://resume-builder-ai-production.up.railway.app"
+        NODE_ENV: "production"
+    deployment:
+      strategy: "atomic"
+      pre_deploy_checks:
+        - name: "Build validation"
+          command: "npm run build"
+          timeout: 120
+        - name: "Asset optimization check"
+          command: "npm run lint"
+          timeout: 60
+      health_checks:
+        - url: "/"
+          expected_status: 200
+          timeout: 10
+        - url: "/ai"
+          expected_status: 200
+          timeout: 10
+      post_deploy_validation:
+        - name: "Page load test"
+          url: "/"
+          max_response_time: 2000
+        - name: "API connectivity test"
+          url: "/ai"
+          max_response_time: 3000
+
+  backend:
+    name: "Backend (Railway)"
+    type: "api"
+    provider: "railway"
+    config:
+      project_id: "${RAILWAY_PROJECT_ID}"
+      service_id: "${RAILWAY_SERVICE_ID}"
+      auth_token: "${RAILWAY_TOKEN}"
+      build_command: "pip install -r requirements_production.txt"
+      start_command: "python -m uvicorn expanded_main:app --host 0.0.0.0 --port $PORT"
+      environment:
+        DATABASE_URL: "${DATABASE_URL}"
+        SESSION_SECRET_KEY: "${SESSION_SECRET_KEY}"
+        ALLOWED_ORIGINS: '["https://tranquil-frangipane-ceffd4.netlify.app"]'
+        ENV: "production"
+    deployment:
+      strategy: "rolling"
+      pre_deploy_checks:
+        - name: "Database connectivity"
+          command: "python -c 'from app.core.database import engine; engine.connect()'"
+          timeout: 30
+        - name: "Dependencies check"
+          command: "pip check"
+          timeout: 60
+        - name: "Syntax validation"
+          command: "python -m py_compile app/main.py"
+          timeout: 30
+      health_checks:
+        - url: "/health"
+          expected_status: 200
+          timeout: 10
+          expected_response:
+            status: "healthy"
+        - url: "/api/v1/rocket/health"
+          expected_status: 200
+          timeout: 15
+        - url: "/api/v1/elite/health"
+          expected_status: 200
+          timeout: 15
+      post_deploy_validation:
+        - name: "ROCKET Framework test"
+          url: "/api/v1/rocket/conversation"
+          method: "POST"
+          payload:
+            message: "Health check test"
+            persona: "dr_maya"
+          expected_status: 200
+          max_response_time: 500
+        - name: "Elite Comparison test"
+          url: "/api/v1/elite/health"
+          expected_status: 200
+          max_response_time: 200
+        - name: "Database operations test"
+          url: "/api/v1/resume/health"
+          expected_status: 200
+          max_response_time: 300
+
+# Deployment strategies
+strategies:
+  atomic:
+    description: "Deploy all changes at once after validation"
+    steps:
+      - validate_build
+      - deploy_to_staging_slot
+      - run_health_checks
+      - swap_production_slot
+      - verify_deployment
+    rollback:
+      method: "instant_swap"
+      trigger: "health_check_failure"
+
+  rolling:
+    description: "Gradually replace instances with zero downtime"
+    steps:
+      - validate_build
+      - deploy_new_instance
+      - health_check_new_instance
+      - route_traffic_gradually
+      - shutdown_old_instance
+      - verify_deployment
+    rollback:
+      method: "traffic_shift"
+      trigger: "consecutive_failures"
+
+# Monitoring and alerting
+monitoring:
+  health_endpoints:
+    frontend:
+      - "/"
+      - "/ai"
+      - "/professional-templates"
+      - "/templates"
+    backend:
+      - "/health"
+      - "/api/v1/rocket/health"
+      - "/api/v1/elite/health"
+      - "/api/v1/conversation/health"
+      - "/api/v1/personas/health"
+  
+  performance_thresholds:
+    response_time: 500 # milliseconds
+    error_rate: 1 # percentage
+    cpu_usage: 80 # percentage
+    memory_usage: 85 # percentage
+  
+  alerts:
+    channels:
+      - type: "console"
+        level: "info"
+      - type: "webhook"
+        url: "${SLACK_WEBHOOK_URL}"
+        level: "warning"
+      - type: "email"
+        recipients: ["${ALERT_EMAIL}"]
+        level: "critical"
+
+# Pre-deployment validation
+pre_deployment:
+  checks:
+    - name: "Frontend build"
+      command: "cd apps/web-app && npm run build"
+      timeout: 120
+    - name: "Backend dependencies"
+      command: "cd apps/backend && pip install -r requirements_production.txt"
+      timeout: 180
+    - name: "Database migrations"
+      command: "cd apps/backend && python create_rocket_tables.py"
+      timeout: 60
+    - name: "Integration tests"
+      command: "cd apps/backend && python test_rocket_framework.py"
+      timeout: 300
+
+# Post-deployment validation
+post_deployment:
+  smoke_tests:
+    - name: "Frontend accessibility"
+      url: "https://tranquil-frangipane-ceffd4.netlify.app"
+      expected_status: 200
+      timeout: 10
+    - name: "Backend health"
+      url: "https://resume-builder-ai-production.up.railway.app/health"
+      expected_status: 200
+      timeout: 10
+    - name: "ROCKET Framework functionality"
+      url: "https://resume-builder-ai-production.up.railway.app/api/v1/rocket/health"
+      expected_status: 200
+      timeout: 15
+    - name: "Elite Comparison functionality"
+      url: "https://resume-builder-ai-production.up.railway.app/api/v1/elite/health"
+      expected_status: 200
+      timeout: 15
+  
+  performance_tests:
+    - name: "Frontend load time"
+      url: "https://tranquil-frangipane-ceffd4.netlify.app"
+      max_response_time: 2000
+    - name: "Backend API performance"
+      url: "https://resume-builder-ai-production.up.railway.app/health"
+      max_response_time: 500
+    - name: "ROCKET Framework performance"
+      url: "https://resume-builder-ai-production.up.railway.app/api/v1/rocket/health"
+      max_response_time: 200
+
+# Rollback configuration
+rollback:
+  triggers:
+    - consecutive_health_check_failures: 3
+    - error_rate_threshold: 5 # percentage
+    - response_time_degradation: 100 # percentage increase
+  
+  strategies:
+    frontend:
+      method: "netlify_rollback"
+      command: "netlify api deleteDeployment --site ${NETLIFY_SITE_ID}"
+    backend:
+      method: "railway_rollback"
+      command: "railway rollback --project ${RAILWAY_PROJECT_ID}"
+  
+  verification:
+    - name: "Rollback health check"
+      url: "https://tranquil-frangipane-ceffd4.netlify.app"
+      expected_status: 200
+    - name: "Backend rollback verification"
+      url: "https://resume-builder-ai-production.up.railway.app/health"
+      expected_status: 200
+
+# Blue-Green deployment configuration (future enhancement)
+blue_green:
+  enabled: false
+  slots:
+    blue:
+      frontend_url: "https://blue.tranquil-frangipane-ceffd4.netlify.app"
+      backend_url: "https://blue-resume-builder-ai.up.railway.app"
+    green:
+      frontend_url: "https://green.tranquil-frangipane-ceffd4.netlify.app"
+      backend_url: "https://green-resume-builder-ai.up.railway.app"
+  traffic_routing:
+    initial: "blue"
+    target: "green"
+    percentage_increments: [10, 25, 50, 75, 100]
+    wait_between_increments: 300 # seconds
+
+# Canary deployment configuration (future enhancement)
+canary:
+  enabled: false
+  traffic_split:
+    stable: 90 # percentage
+    canary: 10 # percentage
+  success_criteria:
+    error_rate: 1 # percentage
+    response_time: 500 # milliseconds
+    duration: 600 # seconds
+  promotion:
+    automatic: true
+    criteria:
+      - error_rate_below: 1
+      - response_time_below: 500
+      - duration_stable: 300

@@ -18,6 +18,7 @@ import ROCKETProgress from './ROCKETProgress';
 import ConversationInterface from './ConversationInterface';
 import CareerPsychologistChat from './CareerPsychologistChat';
 import ResumeBuilder from './ResumeBuilder';
+import CompleteROCKETFramework from './CompleteROCKETFramework';
 
 // Custom hooks
 import { useROCKETSession } from '../../hooks/useROCKETSession';
@@ -248,35 +249,16 @@ const EnhancedAIDashboard = () => {
                         ))}
                     </TabsList>
 
-                    {/* ROCKET Builder Tab */}
+                    {/* ROCKET Builder Tab - Complete Framework */}
                     <TabsContent value="rocket-builder" className="space-y-6">
-                        <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-                            <div className="p-6 border-b border-gray-200">
-                                <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                                    <Target className="w-6 h-6 text-blue-600" />
-                                    ROCKET Framework Builder
-                                </h2>
-                                <p className="text-gray-600 mt-2">
-                                    Results-Optimized Career Knowledge Enhancement Toolkit
-                                </p>
-                            </div>
-
-                            <div className="p-6">
-                                {isSessionActive ? (
-                                    <ConversationInterface
-                                        messages={messages}
-                                        onSendMessage={handleSendMessage}
-                                        isLoading={isLoading}
-                                        suggestions={messages[messages.length - 1]?.suggestions || []}
-                                        processingMode={processingMode}
-                                        onModeChange={setProcessingMode}
-                                        personalityAnalysis={personalityAnalysis}
-                                    />
-                                ) : (
-                                    <SessionStartPrompt onStartSession={() => startSession('rocket')} />
-                                )}
-                            </div>
-                        </div>
+                        <CompleteROCKETFramework
+                            apiUrl="https://resume-builder-ai-production.up.railway.app"
+                            onComplete={(results) => {
+                                console.log('ROCKET Framework completed:', results);
+                                // Handle completion - could save to database, export, etc.
+                            }}
+                            initialMode="integrated"
+                        />
                     </TabsContent>
 
                     {/* Resume Builder Tab */}

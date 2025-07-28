@@ -13,71 +13,116 @@ import {
 /**
  * ROCKETProgress Component
  * 
- * Displays real-time progress for the ROCKET Framework completion
- * including Personal Story, Experience Mining, Quantification, and Overall Score
+ * Displays real-time progress for the complete ROCKET Framework:
+ * R - Results: Career achievement and quantifiable outcomes
+ * O - Optimization: Professional development and growth areas  
+ * C - Clarity: Communication style and value proposition
+ * K - Knowledge: Industry expertise and skills assessment
+ * E - Efficiency: Job search strategy and time management
+ * T - Targeting: Career positioning and goal alignment
  * 
- * @param {Object} progress - Progress data from ROCKET session
- * @param {Object} components_status - Status of individual components
- * @returns {JSX.Element} Progress dashboard
+ * @param {Object} rocketScores - ROCKET component scores (0-1 scale)
+ * @param {string} currentPhase - Current conversation phase
+ * @param {number} completionPercentage - Overall completion percentage
+ * @param {Object} sessionStats - Session statistics
+ * @returns {JSX.Element} Comprehensive ROCKET progress dashboard
  */
 const ROCKETProgress = ({
-    progress = {
-        story_completion: 0,
-        experience_mining: 0,
-        quantification_rate: 0,
-        overall_score: 0
+    rocketScores = {
+        results: 0,
+        optimization: 0,
+        clarity: 0,
+        knowledge: 0,
+        efficiency: 0,
+        targeting: 0,
+        overall: 0
     },
-    components_status = {
-        personal_story: false,
-        experiences_count: 0,
-        quantified_achievements: 0,
-        session_active: false
+    currentPhase = 'introduction',
+    completionPercentage = 0,
+    sessionStats = {
+        totalInteractions: 0,
+        sessionDuration: '0 minutes',
+        qualityScore: 0
     }
 }) => {
-    const progressCards = [
+    const rocketComponents = [
         {
-            id: 'story',
-            title: 'Personal Story',
-            progress: progress.story_completion,
+            id: 'results',
+            title: 'Results',
+            subtitle: 'R',
+            progress: rocketScores.results * 100,
             icon: Target,
-            description: 'Career narrative clarity',
+            description: 'Career achievements & quantifiable outcomes',
+            weight: '25%',
             color: 'blue',
             bgColor: 'bg-blue-50',
             textColor: 'text-blue-600',
             progressColor: 'bg-blue-500'
         },
         {
-            id: 'mining',
-            title: 'Experience Mining',
-            progress: progress.experience_mining,
+            id: 'optimization',
+            title: 'Optimization',
+            subtitle: 'O',
+            progress: rocketScores.optimization * 100,
             icon: TrendingUp,
-            description: 'Achievement extraction',
+            description: 'Professional development & growth areas',
+            weight: '15%',
             color: 'green',
             bgColor: 'bg-green-50',
             textColor: 'text-green-600',
             progressColor: 'bg-green-500'
         },
         {
-            id: 'quantification',
-            title: 'Quantification',
-            progress: progress.quantification_rate,
-            icon: BarChart3,
-            description: 'Results with numbers',
+            id: 'clarity',
+            title: 'Clarity',
+            subtitle: 'C',
+            progress: rocketScores.clarity * 100,
+            icon: Brain,
+            description: 'Communication style & value proposition',
+            weight: '20%',
             color: 'purple',
             bgColor: 'bg-purple-50',
             textColor: 'text-purple-600',
             progressColor: 'bg-purple-500'
         },
         {
-            id: 'overall',
-            title: 'Overall ROCKET',
-            progress: progress.overall_score,
-            icon: CheckCircle,
-            description: 'Framework completion',
+            id: 'knowledge',
+            title: 'Knowledge',
+            subtitle: 'K',
+            progress: rocketScores.knowledge * 100,
+            icon: FileText,
+            description: 'Industry expertise & skills assessment',
+            weight: '20%',
+            color: 'indigo',
+            bgColor: 'bg-indigo-50',
+            textColor: 'text-indigo-600',
+            progressColor: 'bg-indigo-500'
+        },
+        {
+            id: 'efficiency',
+            title: 'Efficiency',
+            subtitle: 'E',
+            progress: rocketScores.efficiency * 100,
+            icon: Clock,
+            description: 'Job search strategy & time management',
+            weight: '10%',
             color: 'orange',
             bgColor: 'bg-orange-50',
             textColor: 'text-orange-600',
             progressColor: 'bg-orange-500'
+        },
+        {
+            id: 'targeting',
+            title: 'Targeting',
+            subtitle: 'T',
+            progress: rocketScores.targeting * 100,
+            icon: BarChart3,
+            description: 'Career positioning & goal alignment',
+            weight: '10%',
+            color: 'pink',
+            bgColor: 'bg-pink-50',
+            textColor: 'text-pink-600',
+            progressColor: 'bg-pink-500'
         }
     ];
 
@@ -102,30 +147,57 @@ const ROCKETProgress = ({
                 </div>
             </div>
 
-            {/* Progress Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                {progressCards.map((card) => (
-                    <ProgressCard
-                        key={card.id}
-                        {...card}
+            {/* Overall Score Display */}
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-white mb-6">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h3 className="text-xl font-bold mb-2">Overall ROCKET Score</h3>
+                        <p className="text-blue-100">Weighted composite score based on all components</p>
+                    </div>
+                    <div className="text-right">
+                        <div className="text-4xl font-bold">{Math.round(rocketScores.overall * 100)}%</div>
+                        <div className="text-blue-200">Complete</div>
+                    </div>
+                </div>
+                <div className="mt-4">
+                    <div className="bg-blue-500 bg-opacity-30 rounded-full h-3">
+                        <div 
+                            className="bg-white rounded-full h-3 transition-all duration-1000"
+                            style={{ width: `${rocketScores.overall * 100}%` }}
+                        />
+                    </div>
+                </div>
+            </div>
+
+            {/* ROCKET Components Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                {rocketComponents.map((component) => (
+                    <ROCKETComponentCard
+                        key={component.id}
+                        {...component}
                     />
                 ))}
             </div>
 
-            {/* Component Status Indicators */}
-            <ComponentStatusIndicators status={components_status} />
+            {/* Phase Progress & Session Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <PhaseProgressCard currentPhase={currentPhase} completionPercentage={completionPercentage} />
+                <SessionStatsCard stats={sessionStats} />
+            </div>
         </div>
     );
 };
 
 /**
- * Individual Progress Card Component
+ * ROCKET Component Card - Enhanced version for individual ROCKET components
  */
-const ProgressCard = ({
+const ROCKETComponentCard = ({
     title,
+    subtitle,
     progress,
     icon: Icon,
     description,
+    weight,
     bgColor,
     textColor,
     progressColor
@@ -141,12 +213,20 @@ const ProgressCard = ({
 
     return (
         <div className={`${bgColor} rounded-lg p-6 border border-gray-200 hover:shadow-md transition-all duration-300`}>
-            {/* Header */}
+            {/* Header with ROCKET letter */}
             <div className="flex items-center justify-between mb-4">
-                <Icon className={`w-6 h-6 ${textColor}`} />
-                <span className={`text-2xl font-bold ${textColor}`}>
-                    {Math.round(progress)}%
-                </span>
+                <div className="flex items-center gap-3">
+                    <div className={`w-10 h-10 ${textColor.replace('text-', 'bg-').replace('-600', '-100')} rounded-full flex items-center justify-center`}>
+                        <span className={`text-lg font-bold ${textColor}`}>{subtitle}</span>
+                    </div>
+                    <Icon className={`w-5 h-5 ${textColor}`} />
+                </div>
+                <div className="text-right">
+                    <span className={`text-2xl font-bold ${textColor}`}>
+                        {Math.round(progress)}%
+                    </span>
+                    <div className="text-xs text-gray-500">{weight} weight</div>
+                </div>
             </div>
 
             {/* Title and Description */}
@@ -154,9 +234,9 @@ const ProgressCard = ({
             <p className="text-sm text-gray-600 mb-4">{description}</p>
 
             {/* Progress Bar */}
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-gray-200 rounded-full h-3">
                 <div
-                    className={`${progressColor} h-2 rounded-full transition-all duration-1000 ease-out`}
+                    className={`${progressColor} h-3 rounded-full transition-all duration-1000 ease-out`}
                     style={{ width: `${animatedProgress}%` }}
                 />
             </div>
@@ -165,70 +245,111 @@ const ProgressCard = ({
 };
 
 /**
- * Component Status Indicators
+ * Phase Progress Card
  */
-const ComponentStatusIndicators = ({ status }) => {
-    const indicators = [
-        {
-            label: 'Personal Story',
-            value: status.personal_story ? 'Complete' : 'Pending',
-            icon: FileText,
-            status: status.personal_story ? 'success' : 'pending'
-        },
-        {
-            label: 'Experiences Captured',
-            value: `${status.experiences_count} experiences`,
-            icon: Brain,
-            status: status.experiences_count > 0 ? 'success' : 'pending'
-        },
-        {
-            label: 'Quantified Achievements',
-            value: `${status.quantified_achievements} achievements`,
-            icon: BarChart3,
-            status: status.quantified_achievements > 0 ? 'success' : 'pending'
-        },
-        {
-            label: 'Session Duration',
-            value: status.session_active ? 'Active' : 'Not Started',
-            icon: Clock,
-            status: status.session_active ? 'active' : 'pending'
-        }
+const PhaseProgressCard = ({ currentPhase, completionPercentage }) => {
+    const phases = [
+        { id: 'introduction', label: 'Introduction', icon: '👋' },
+        { id: 'story_extraction', label: 'Story Extraction', icon: '📖' },
+        { id: 'car_analysis', label: 'CAR Analysis', icon: '🔍' },
+        { id: 'rest_quantification', label: 'REST Quantification', icon: '📊' },
+        { id: 'psychologist_insight', label: 'Psychology Insight', icon: '🧠' },
+        { id: 'completion', label: 'Completion', icon: '✅' }
     ];
 
-    const getStatusStyles = (status) => {
-        switch (status) {
-            case 'success':
-                return 'bg-green-100 text-green-800 border-green-200';
-            case 'active':
-                return 'bg-blue-100 text-blue-800 border-blue-200';
-            case 'pending':
-            default:
-                return 'bg-gray-100 text-gray-600 border-gray-200';
-        }
-    };
+    const currentPhaseIndex = phases.findIndex(phase => phase.id === currentPhase);
 
     return (
-        <div className="bg-white rounded-lg border border-gray-200 p-4">
-            <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-gray-600" />
-                Framework Components Status
+        <div className="bg-white rounded-lg border border-gray-200 p-6">
+            <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <Clock className="w-5 h-5 text-blue-600" />
+                Conversation Phase Progress
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {indicators.map((indicator, index) => (
-                    <div
-                        key={index}
-                        className={`flex items-center gap-2 px-3 py-2 rounded-md border ${getStatusStyles(indicator.status)}`}
-                    >
-                        <indicator.icon className="w-4 h-4" />
-                        <div>
-                            <p className="text-xs font-medium">{indicator.label}</p>
-                            <p className="text-xs opacity-75">{indicator.value}</p>
-                        </div>
+            
+            <div className="space-y-3">
+                {phases.map((phase, index) => (
+                    <div key={phase.id} className={`flex items-center gap-3 p-2 rounded ${
+                        index === currentPhaseIndex ? 'bg-blue-50 border border-blue-200' : ''
+                    }`}>
+                        <span className="text-lg">{phase.icon}</span>
+                        <span className={`flex-1 text-sm ${
+                            index === currentPhaseIndex ? 'font-medium text-blue-900' : 
+                            index < currentPhaseIndex ? 'text-gray-900' : 'text-gray-500'
+                        }`}>
+                            {phase.label}
+                        </span>
+                        {index < currentPhaseIndex && (
+                            <CheckCircle className="w-4 h-4 text-green-500" />
+                        )}
+                        {index === currentPhaseIndex && (
+                            <div className="w-4 h-4 border-2 border-blue-500 rounded-full border-t-transparent animate-spin" />
+                        )}
                     </div>
                 ))}
+            </div>
+            
+            <div className="mt-4 pt-4 border-t border-gray-200">
+                <div className="flex justify-between text-sm mb-2">
+                    <span>Overall Progress</span>
+                    <span className="font-medium">{Math.round(completionPercentage)}%</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div 
+                        className="bg-blue-500 h-2 rounded-full transition-all duration-1000"
+                        style={{ width: `${completionPercentage}%` }}
+                    />
+                </div>
             </div>
         </div>
     );
 };
+
+/**
+ * Session Statistics Card
+ */
+const SessionStatsCard = ({ stats }) => {
+    return (
+        <div className="bg-white rounded-lg border border-gray-200 p-6">
+            <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-purple-600" />
+                Session Statistics
+            </h3>
+            
+            <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Total Interactions</span>
+                    <span className="font-medium">{stats.totalInteractions}</span>
+                </div>
+                
+                <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Session Duration</span>
+                    <span className="font-medium">{stats.sessionDuration}</span>
+                </div>
+                
+                <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Quality Score</span>
+                    <div className="flex items-center gap-2">
+                        <span className="font-medium">{Math.round(stats.qualityScore * 100)}%</span>
+                        <div className="w-16 bg-gray-200 rounded-full h-2">
+                            <div 
+                                className="bg-green-500 h-2 rounded-full transition-all duration-500"
+                                style={{ width: `${stats.qualityScore * 100}%` }}
+                            />
+                        </div>
+                    </div>
+                </div>
+                
+                <div className="pt-3 border-t border-gray-200">
+                    <div className="text-xs text-gray-500">
+                        {stats.totalInteractions >= 10 ? '🎯 Excellent engagement' :
+                         stats.totalInteractions >= 5 ? '👍 Good progress' :
+                         '📈 Keep going for better insights'}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 
 export default ROCKETProgress;
