@@ -99,3 +99,6 @@ models/
 
 # Ollama data (if stored locally)
 ollama_data/
+
+# Local Netlify folder
+.netlify
