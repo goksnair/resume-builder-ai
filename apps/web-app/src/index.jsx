@@ -1,22 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
+import App from './App';
 import './styles/index.css';
 
-// Global error handling
-window.addEventListener('error', (event) => {
-  console.error('🚨 Global Error:', event.error);
-});
-
-window.addEventListener('unhandledrejection', (event) => {
-  console.error('🚨 Unhandled Promise Rejection:', event.reason);
-});
-
-console.log('🚀 Starting Resume Builder AI - Full Application');
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    {console.log('✅ ReactDOM root render called')}
+    <div style={{position:'fixed',top:0,left:0,zIndex:9999,background:'#ff0',color:'#000',padding:'4px',fontWeight:'bold'}}>ReactDOM root render called</div>
     <App />
   </React.StrictMode>
 );

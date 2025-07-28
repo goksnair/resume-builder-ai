@@ -59,6 +59,9 @@
     "react-router-dom": "^7.7.1",
     "react-spring": "^10.0.1",
     "serve": "^14.2.4",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "chart.js": "^4.4.1",
+    "react-chartjs-2": "^5.2.0",
+    "date-fns": "^3.3.1"
   }
 }

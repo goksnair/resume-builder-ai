@@ -1,0 +1,28 @@
+{
+  "autonomous_development": true,
+  "auto_approve_ui_changes": true,
+  "auto_approve_feature_additions": true,
+  "auto_approve_optimizations": true,
+  "require_confirmation_for": [
+    "production_deployments_with_breaking_changes",
+    "database_schema_deletions",
+    "security_access_control_changes",
+    "user_data_deletion_operations"
+  ],
+  "parallel_agent_execution": true,
+  "max_concurrent_agents": 4,
+  "auto_restart_on_usage_reset": true,
+  "timezone": "Asia/Calcutta",
+  "usage_reset_time": "15:30",
+  "intelligent_decision_making": true,
+  "context_aware_autonomy": true,
+  "agent_priorities": {
+    "ui-experience-designer": "high",
+    "conversation-architect": "high",
+    "algorithm-engineer": "medium",
+    "qa-security-engineer": "high",
+    "devops-deployment-specialist": "medium",
+    "database-specialist": "medium",
+    "context-engineer": "high"
+  }
+}
