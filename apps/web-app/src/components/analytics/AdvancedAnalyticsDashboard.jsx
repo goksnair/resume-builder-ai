@@ -20,8 +20,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ResumePerformanceAnalytics from './ResumePerformanceAnalytics';
 import CareerProgressTracking from './CareerProgressTracking';
 import InteractiveDataVisualizations from './InteractiveDataVisualizations';
-import DashboardCustomization from './DashboardCustomization';
-import ExportManager from './ExportManager';
+// import DashboardCustomization from './DashboardCustomization'; // TODO: Create component
+// import ExportManager from './ExportManager'; // TODO: Create ExportManager component
 
 // Services
 import { analyticsAPI } from '../../services/analyticsAPI';
@@ -473,10 +473,10 @@ const AdvancedAnalyticsDashboard = ({ userId = 'demo_user_001' }) => {
                                 )}
                                 
                                 {activeTab === 'customization' && (
-                                    <DashboardCustomization 
-                                        layout={dashboardLayout}
-                                        onLayoutChange={setDashboardLayout}
-                                    />
+                                    <div className="p-6 text-center">
+                                        <h3 className="text-lg font-semibold mb-2">Dashboard Customization</h3>
+                                        <p className="text-gray-600">Customization features coming soon!</p>
+                                    </div>
                                 )}
                             </motion.div>
                         </AnimatePresence>
@@ -484,14 +484,20 @@ const AdvancedAnalyticsDashboard = ({ userId = 'demo_user_001' }) => {
                 </div>
             )}
 
-            {/* Export Modal */}
+            {/* Export Modal - TODO: Implement ExportManager */}
             {exportModalOpen && (
-                <ExportManager 
-                    isOpen={exportModalOpen}
-                    onClose={() => setExportModalOpen(false)}
-                    dashboardData={dashboardData}
-                    filters={filters}
-                />
+                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+                    <div className="bg-white p-6 rounded-lg max-w-md w-full">
+                        <h3 className="text-lg font-semibold mb-4">Export Dashboard</h3>
+                        <p className="text-gray-600 mb-4">Export functionality coming soon!</p>
+                        <button 
+                            onClick={() => setExportModalOpen(false)}
+                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
             )}
         </div>
     );
