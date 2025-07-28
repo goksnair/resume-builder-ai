@@ -32,6 +32,10 @@ class ContinuousAgentOrchestrator:
         # Initialize feature roadmap
         self.load_feature_roadmap()
         
+        # Context optimization integration
+        self.context_optimizer = None
+        self.context_health_check_interval = 300  # 5 minutes
+        
     def continuous_development_cycle(self):
         """Main 24/7 continuous development cycle"""
         print("🚀 CONTINUOUS AGENT ORCHESTRATION - 24/7 MODE")
@@ -94,6 +98,9 @@ class ContinuousAgentOrchestrator:
                         
                         print(f"✅ Cycle #{cycle_count} completed successfully!")
                         print(f"🚀 Features implemented: {len(next_features)}")
+                        
+                        # Context optimization check
+                        self.run_context_optimization_check(cycle_count)
                         
                         # Brief pause before next cycle
                         print("⏳ Brief pause before next development cycle...")
@@ -459,6 +466,33 @@ class ContinuousAgentOrchestrator:
             'final-completion',
             'All features completed - Resume Builder AI development finished'
         ], cwd=self.repo_root)
+    
+    def run_context_optimization_check(self, cycle_count: int):
+        """Run context optimization check via Context Engineer"""
+        # Only run every 5 cycles to avoid overhead
+        if cycle_count % 5 == 0:
+            print("🧠 Running Context Engineer optimization check...")
+            
+            try:
+                context_script = self.repo_root / "scripts" / "context-optimization-system.py"
+                if context_script.exists():
+                    result = subprocess.run(
+                        ["python3", str(context_script)],
+                        cwd=self.repo_root,
+                        capture_output=True,
+                        text=True,
+                        timeout=60
+                    )
+                    
+                    if result.returncode == 0:
+                        print("   ✅ Context optimization completed")
+                    else:
+                        print("   ⚠️ Context optimization had warnings")
+                else:
+                    print("   ❌ Context optimization script not found")
+                    
+            except Exception as e:
+                print(f"   ❌ Context optimization error: {e}")
     
     def emergency_context_preservation(self, cycle_count: int):
         """Emergency context preservation on interruption"""
