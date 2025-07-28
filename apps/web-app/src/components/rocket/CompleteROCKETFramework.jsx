@@ -82,11 +82,17 @@ const CompleteROCKETFramework = ({
         setIsLoading(true);
         
         try {
-            // For demo purposes, we'll create a mock session since backend isn't deployed yet
-            const mockSessionId = `rocket_session_${Date.now()}`;
-            setSessionId(mockSessionId);
+            // Initialize real ROCKET session with backend
+            const response = await rocketAPI.initializeSession();
+            if (response.success && response.sessionId) {
+                setSessionId(response.sessionId);
+            } else {
+                // Fallback to local session if backend unavailable
+                const fallbackSessionId = `rocket_session_${Date.now()}`;
+                setSessionId(fallbackSessionId);
+            }
             
-            // Mock Dr. Maya introduction message
+            // Dr. Maya introduction message
             const introMessage = {
                 id: 'intro_1',
                 sender: 'psychologist',

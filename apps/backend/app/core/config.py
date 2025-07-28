@@ -22,7 +22,7 @@ class Settings(BaseSettings):
     SYNC_DATABASE_URL: Optional[str] = None
     ASYNC_DATABASE_URL: Optional[str] = None
     DATABASE_URL: Optional[str] = None
-    SESSION_SECRET_KEY: Optional[str] = "dev-secret-key-change-in-production"
+    SESSION_SECRET_KEY: Optional[str] = None
     DB_ECHO: bool = False
     PYTHONDONTWRITEBYTECODE: int = 1
     ENV: str = "local"

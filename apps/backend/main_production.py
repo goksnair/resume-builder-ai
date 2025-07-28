@@ -24,10 +24,15 @@ class ProductionSettings:
         "https://*.netlify.app"
     ]
     DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./resume_builder.db")
-    SESSION_SECRET_KEY: str = os.getenv("SESSION_SECRET_KEY", "production-secret-key")
+    SESSION_SECRET_KEY: str = os.getenv("SESSION_SECRET_KEY", "CHANGE_ME_IN_PRODUCTION")
     ENV: str = "production"
 
 settings = ProductionSettings()
+
+# Security validation
+if settings.SESSION_SECRET_KEY == "CHANGE_ME_IN_PRODUCTION":
+    logger.error("SECURITY WARNING: Default session secret key detected in production!")
+    logger.error("Set SESSION_SECRET_KEY environment variable with a secure random key")
 
 # Create FastAPI app
 app = FastAPI(
@@ -122,6 +127,15 @@ async def ai_dashboard():
     }
 
 # ROCKET Framework endpoints
+@app.get("/api/v1/rocket/health")
+async def rocket_health():
+    return {
+        "status": "healthy",
+        "framework": "ROCKET",
+        "version": "1.0.0",
+        "features": ["Career Psychology", "Dr. Maya Persona", "Assessment Framework"]
+    }
+
 @app.get("/api/v1/rocket/session")
 async def rocket_session():
     return {
