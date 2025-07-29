@@ -27,9 +27,6 @@ function App() {
       <ThemeProvider>
         <TemplateProvider>
         <Router>
-          <div style={{ background: '#ffe', padding: '1rem', color: '#222', fontWeight: 'bold', fontSize: '1.2rem', borderBottom: '2px solid #ccc' }}>
-            Root Rendered: App.jsx
-          </div>
           <div className="App min-h-screen flex flex-col">
             <EnhancedNavigation />
             <Breadcrumb />
