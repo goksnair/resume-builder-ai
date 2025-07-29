@@ -1,0 +1,10 @@
+{
+  "status": "operational",
+  "current_sprint": null,
+  "active_agents": [
+    "ui-ux-agent",
+    "qa-security-engineer"
+  ],
+  "last_updated": "2025-07-29T09:54:05.650915",
+  "session_count": 1
+}

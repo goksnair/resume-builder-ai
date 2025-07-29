@@ -1,0 +1,14 @@
+{
+  "status": "operational",
+  "timestamp": "2025-07-29T10:18:23.629896",
+  "active_agents": [
+    "boss-cto",
+    "product-manager-cpo",
+    "ui-ux-agent",
+    "backend-agent",
+    "qa-security-engineer",
+    "devops-agent"
+  ],
+  "uptime": 0.011363983154296875,
+  "task_queue_size": 1
+}

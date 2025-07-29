@@ -1,0 +1,8 @@
+{
+  "reset_message": "Claude usage limit reached. Your limit will reset at 2:30pm (Asia/Calcutta)",
+  "reset_time": "2:30pm",
+  "timezone": "Asia/Calcutta",
+  "detected_at": "2025-07-29T10:02:00Z",
+  "status": "scheduled",
+  "backup_completed": true
+}

@@ -1,0 +1,11 @@
+{
+  "backup_type": "live_system_backup",
+  "created_at": "2025-07-29T10:02:00Z",
+  "reason": "usage_reset_preparation",
+  "contents": [
+    "agent-states",
+    "agent-executions", 
+    "system-state.json",
+    "CURRENT_PRODUCTION_STATUS.md"
+  ]
+}

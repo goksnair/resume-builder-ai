@@ -1,0 +1,1 @@
+ui bug found in dashboard component

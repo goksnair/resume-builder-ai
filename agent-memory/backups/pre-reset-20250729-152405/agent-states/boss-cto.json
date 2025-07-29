@@ -1,0 +1,10 @@
+{
+  "agentId": "boss-cto",
+  "status": "active",
+  "lastActive": "2025-07-29T09:41:32Z",
+  "restartedAt": "2025-07-29T09:41:32Z",
+  "restartReason": "autonomous_system_restart",
+  "currentTask": null,
+  "taskQueue": [],
+  "autonomousMode": true
+}

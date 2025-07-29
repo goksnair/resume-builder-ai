@@ -1,0 +1,13 @@
+{
+  "agentId": "qa-security-engineer",
+  "status": "active",
+  "lastActive": "2025-07-29T09:41:32Z",
+  "restartedAt": "2025-07-29T09:41:32Z",
+  "restartReason": "autonomous_system_restart",
+  "currentTask": null,
+  "taskQueue": [],
+  "autonomousMode": true,
+  "initialized_at": "2025-07-29T09:54:05.649638",
+  "auto_invoke": false,
+  "priority": 4
+}

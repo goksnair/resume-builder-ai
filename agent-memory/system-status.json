@@ -1,0 +1,9 @@
+{
+  "systemStartTime": "2025-07-29T09:41:32Z",
+  "status": "initializing",
+  "activeAgents": [],
+  "currentSprint": null,
+  "lastClaudeReset": null,
+  "autonomousMode": true,
+  "sessionCount": 1
+}
