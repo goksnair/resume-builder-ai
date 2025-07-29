@@ -1,0 +1,189 @@
+# 🤖 CLAUDE WORKFLOW INTEGRATION CONFIGURATION
+# Configuration for autonomous Claude Code integration system
+
+agents:
+  boss-cto:
+    priority: 1
+    auto_invoke: true
+    schedule: "daily"
+    tasks:
+      - "Generate daily development briefing"
+      - "Monitor system health and performance"
+      - "Coordinate agent activities"
+      - "Ensure quality standards"
+    
+  product-manager-cpo:
+    priority: 2
+    auto_invoke: true
+    schedule: "bi-daily"
+    tasks:
+      - "Review sprint progress"
+      - "Update product roadmap"
+      - "Prioritize feature backlog"
+      - "Manage stakeholder communication"
+    
+  ui-ux-agent:
+    priority: 3
+    auto_invoke: false
+    schedule: "on_demand"
+    tasks:
+      - "Implement UI components"
+      - "Optimize user experience"
+      - "Maintain design system"
+      - "Ensure accessibility compliance"
+    
+  backend-agent:
+    priority: 3
+    auto_invoke: false
+    schedule: "on_demand"
+    tasks:
+      - "Develop API endpoints"
+      - "Optimize database queries"
+      - "Implement AI services"
+      - "Ensure scalability"
+    
+  qa-security-engineer:
+    priority: 4
+    auto_invoke: false
+    schedule: "on_demand"
+    tasks:
+      - "Execute comprehensive testing"
+      - "Perform security assessments"
+      - "Validate code quality"
+      - "Monitor production health"
+    
+  devops-agent:
+    priority: 4
+    auto_invoke: false
+    schedule: "on_demand"
+    tasks:
+      - "Manage deployment pipeline"
+      - "Monitor infrastructure"
+      - "Optimize build processes"
+      - "Ensure system reliability"
+
+monitoring:
+  check_interval: 30  # seconds
+  usage_reset_patterns:
+    - "usage limit.*reset at (\\d{1,2}:\\d{2}[ap]m).*(\\([^)]+\\))"
+    - "limit will reset at (\\d{1,2}:\\d{2}[ap]m).*(\\([^)]+\\))"
+    - "Claude usage limit reached.*reset at (\\d{1,2}:\\d{2}[ap]m).*(\\([^)]+\\))"
+  
+  conversation_triggers:
+    deploy_production: 
+      pattern: "deploy.*production"
+      agent: "devops-agent"
+      task: "Handle production deployment request"
+    
+    test_failing:
+      pattern: "test.*failing"
+      agent: "qa-security-engineer"
+      task: "Investigate and fix failing tests"
+    
+    performance_issue:
+      pattern: "performance.*issue"
+      agent: "backend-agent"
+      task: "Investigate performance issues"
+    
+    ui_bug:
+      pattern: "ui.*bug"
+      agent: "ui-ux-agent"
+      task: "Fix UI bug report"
+    
+    security_concern:
+      pattern: "security.*issue|vulnerability"
+      agent: "qa-security-engineer"
+      task: "Address security concern"
+
+workflows:
+  daily_briefing: true
+  auto_sprint_management: true
+  continuous_development: true
+  quality_gates: true
+  
+  sprint_settings:
+    duration_days: 14
+    auto_planning: true
+    progress_tracking: true
+    completion_threshold: 90  # percent
+  
+  quality_settings:
+    test_coverage_minimum: 90
+    performance_threshold: 2000  # ms
+    accessibility_compliance: "WCAG_2_1_AA"
+    security_scan_frequency: "daily"
+
+integration:
+  claude_code:
+    enabled: true
+    api_timeout: 300  # seconds
+    retry_attempts: 3
+    rate_limit: 60  # requests per minute
+  
+  conversation_monitoring:
+    enabled: true
+    log_file: "logs/claude-conversation.log"
+    backup_frequency: "hourly"
+  
+  context_preservation:
+    enabled: true
+    backup_frequency: "every_30_minutes"
+    retention_days: 30
+    compression: true
+
+system:
+  health_checks:
+    enabled: true
+    interval: 600  # seconds (10 minutes)
+    alerts:
+      agent_inactive: 172800  # seconds (48 hours)
+      disk_space_threshold: 85  # percent
+      memory_threshold: 90  # percent
+  
+  logging:
+    level: "INFO"
+    retention_days: 30
+    max_file_size: "100MB"
+    compression: true
+  
+  recovery:
+    auto_recovery: true
+    backup_on_failure: true
+    restart_on_critical_error: true
+    recovery_timeout: 1800  # seconds (30 minutes)
+
+notifications:
+  enabled: true
+  channels:
+    log_file: true
+    system_status: true
+  
+  events:
+    system_start: true
+    agent_invocation: true
+    task_completion: true
+    error_occurrence: true
+    usage_reset_detected: true
+    sprint_milestone: true
+
+development:
+  world_class_standards:
+    code_quality: "excellent"
+    test_coverage: ">90%"
+    performance: "<2s response time"
+    accessibility: "WCAG 2.1 AA"
+    security: "zero critical vulnerabilities"
+  
+  product_vision:
+    goal: "world-class resume builder rivaling biggest tech companies"
+    differentiators:
+      - "AI-powered content generation"
+      - "Real-time job matching optimization"  
+      - "Industry-leading user experience"
+      - "Comprehensive analytics and insights"
+    
+    success_metrics:
+      user_satisfaction: ">4.5/5"
+      conversion_rate: ">15%"
+      performance_score: ">90 Lighthouse"
+      market_position: "top 3 in category"
