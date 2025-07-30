@@ -9,7 +9,7 @@ from typing import Dict, List, Any, Optional
 from pydantic import BaseModel
 from enum import Enum
 
-from ....core.database import get_sync_db_session
+from ....core import get_sync_db_session
 from ....services.unified_conversation_service import UnifiedConversationOrchestrator, ConversationMode
 from ....services.response_quality_intelligence import ResponseQualityIntelligence
 

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import Optional
 
-from ....core.database import get_sync_db_session
+from ....core import get_sync_db_session
 from ....services.conversation_service import ConversationalResumeBuilder
 from ....schemas.pydantic.conversation import (
     StartConversationRequest, StartConversationResponse,

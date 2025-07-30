@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel
 
-from ....core.database import get_sync_db_session
+from ....core import get_sync_db_session
 from ....services.persona_session_manager import PersonaSessionManager
 
 

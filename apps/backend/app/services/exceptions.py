@@ -110,6 +110,20 @@ class JobKeywordExtractionError(Exception):
         self.job_id = job_id
 
 
+class EliteComparisonError(Exception):
+    """
+    Exception raised when elite comparison analysis fails.
+    """
+
+    def __init__(self, message: Optional[str] = None, resume_id: Optional[str] = None):
+        if resume_id and not message:
+            message = f"Elite comparison failed for resume with ID {resume_id}."
+        elif not message:
+            message = "Elite comparison analysis failed."
+        super().__init__(message)
+        self.resume_id = resume_id
+
+
 class ServiceException(Exception):
     """
     General service exception for ROCKET Framework services.
